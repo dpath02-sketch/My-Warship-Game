@@ -20,8 +20,10 @@ public class PlayerScript : MonoBehaviour
     public int baseShield = 2750;
     public float hull = 2750;
     public float shield = 2750;
+    public float shieldRgn = 10.5F;
     public Slider hudShield;
     public Slider hudHull;
+    public Slider hudSpeed;
     private float camLat = 0;
     private float camLon = 0;
     private float armour = 1.5F;
@@ -30,6 +32,8 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        HealthSliders();
+        SpeedSlider();
     }
 
     // Update is called once per frame
@@ -43,6 +47,7 @@ public class PlayerScript : MonoBehaviour
             {
                 speed = baseSpeed;
             }
+            SpeedSlider();
         }
         if (Input.GetKey(KeyCode.F))
         {
@@ -51,6 +56,7 @@ public class PlayerScript : MonoBehaviour
             {
                 speed = 0;
             }
+            SpeedSlider();
         }
         if (Input.GetKey(KeyCode.W))
         {
@@ -89,6 +95,8 @@ public class PlayerScript : MonoBehaviour
         {
             Damage(800, 1, 1);
         }
+        shield += shieldRgn * Time.deltaTime;
+        HealthSliders();
     }
 
     private void CamMove(float dist, float height)
@@ -143,14 +151,19 @@ public class PlayerScript : MonoBehaviour
                 Debug.Log("Dead");
             }
         }
-        hudSliders();
     }
 
-    public void hudSliders()
+    public void HealthSliders()
     {
         hudShield.maxValue = baseShield;
         hudHull.maxValue = baseHull;
         hudShield.value = shield;
         hudHull.value = hull;
+    }
+
+    public void SpeedSlider()
+    {
+        hudSpeed.maxValue = baseSpeed;
+        hudSpeed.value = speed;
     }
 }
