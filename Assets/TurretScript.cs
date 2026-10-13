@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurretRelay : MonoBehaviour
+public class TurretScript : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -14,5 +14,11 @@ public class TurretRelay : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void Target(Vector3 pos)
+    {
+        transform.LookAt(pos);
+        transform.Rotate(new Vector3(90, 180, 0), Space.Self);
     }
 }

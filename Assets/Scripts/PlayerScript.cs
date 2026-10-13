@@ -24,6 +24,7 @@ public class PlayerScript : MonoBehaviour
     public Slider hudShield;
     public Slider hudHull;
     public Slider hudSpeed;
+    public List<GameObject> turrets;
     private float camLat = 0;
     private float camLon = 0;
     private float armour = 1.5F;
@@ -39,7 +40,8 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CamMove(20, 5);
+        //Movement:
+        CamMove(44.72F, 11.18F);
         if (Input.GetKey(KeyCode.R))
         {
             speed += accel * Time.deltaTime;
@@ -84,19 +86,11 @@ public class PlayerScript : MonoBehaviour
             transform.Rotate(new Vector3(0, 0, agil * Time.deltaTime), Space.Self);
         }
         transform.Translate(new Vector3(0, 0, speed * Time.deltaTime), Space.Self);
-
-        //Debug
-        float temp = hull + shield;
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            Damage(100, 1, 1);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            Damage(800, 1, 1);
-        }
+        //Health:
         shield += shieldRgn * Time.deltaTime;
         HealthSliders();
+        //Turrets
+        AimTurrets();
     }
 
     private void CamMove(float dist, float height)
@@ -165,5 +159,16 @@ public class PlayerScript : MonoBehaviour
     {
         hudSpeed.maxValue = baseSpeed;
         hudSpeed.value = speed;
+    }
+
+    public void AimTurrets()
+    {
+        Ray ray = cam.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+        RaycastHit hitPoint;
+        Physics.Raycast(ray, out hitPoint, 5000);
+        for(int i = 0; i < turrets.Count; i += 1)
+        {
+            turrets[i].GetComponent<TurretRelay>().Target(hitPoint.point);
+        }
     }
 }
