@@ -68,7 +68,6 @@ public class PlayerScript : MonoBehaviour
         {
             transform.Rotate(new Vector3(agil * Time.deltaTime, 0, 0), Space.Self);
         }
-        transform.Translate(new Vector3(0, 0, speed * Time.deltaTime), Space.Self);
         if (Input.GetKey(KeyCode.D))
         {
             transform.Rotate(new Vector3(0, agil * Time.deltaTime, 0), Space.Self);

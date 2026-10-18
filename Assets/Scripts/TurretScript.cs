@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class TurretScript : MonoBehaviour
 {
-    public Transform ship;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,8 +16,8 @@ public class TurretScript : MonoBehaviour
         
     }
 
-    public void Target(Vector3 pos)
+    public void Target(Vector3 pos, Vector3 up)
     {
-        transform.LookAt(pos, ship.forward * -1);
+        transform.LookAt(pos, up);
     }
 }
