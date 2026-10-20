@@ -5,6 +5,8 @@ using UnityEngine;
 public class TurretScript : MonoBehaviour
 {
     // Start is called before the first frame update
+    public GameObject TBS;
+    private GameObject bigShot;
     void Start()
     {
         
@@ -19,5 +21,12 @@ public class TurretScript : MonoBehaviour
     public void Target(Vector3 pos, Vector3 up)
     {
         transform.LookAt(pos, up);
+        //Fire(); maybe don't constant fire. also no enemies or props to fire at
+    }
+
+    public void Fire()
+    {
+        bigShot = Instantiate(TBS, transform.position, transform.rotation);
+        bigShot.GetComponent<Projectile>().OnSummon(440, 2500);
     }
 }
