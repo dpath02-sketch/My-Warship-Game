@@ -5,7 +5,8 @@ using UnityEngine;
 public class TurretScript : MonoBehaviour
 {
     // Start is called before the first frame update
-    public GameObject TBS;
+    public GameObject tBS;
+    public GameObject ship;
     private GameObject bigShot;
     void Start()
     {
@@ -26,7 +27,7 @@ public class TurretScript : MonoBehaviour
 
     public void Fire()
     {
-        bigShot = Instantiate(TBS, transform.position, transform.rotation);
-        bigShot.GetComponent<Projectile>().OnSummon(440, 2500);
+        bigShot = Instantiate(tBS, transform.position, transform.rotation);
+        bigShot.GetComponent<Projectile>().OnSummon(transform.forward * 440 + ship.transform.forward * ship.GetComponent<PlayerScript>().speed, 2500 / 440, 10, 1, 1); // Add ships speed to projectile. slightly exploitable but idc
     }
 }
