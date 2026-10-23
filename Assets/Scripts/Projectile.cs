@@ -33,27 +33,32 @@ public class Projectile : MonoBehaviour
         if (collision.gameObject.tag == "isPilot")
         {
             // Target is a ship of some kind
+            Debug.LogWarning("isPilot");
             if (collision.gameObject.GetComponent<PlayerScript>() == null)
             {
                 //TODO Target is a ship that's not the player.
+                Debug.LogWarning("notPlayer");
                 Destroy(gameObject);
             }
             else
             {
                 // Target is the player. don't damage
+                Debug.LogWarning("isPlayer");
                 Destroy(gameObject);
             }
         }
         else
         {
-            //TODO Target is not a ship, thats all we know
+            // Target is not a ship, thats all we know
+            Debug.LogWarning("notPilot");
             if (collision.gameObject.GetComponent<BreakableScript>() == null)
             {
-                // Target is not a ship or breakable
+                //TODO Target is not a ship or breakable
                 Destroy(gameObject);
             }
             else
             {
+                // Target is a breakable
                 collision.gameObject.GetComponent<BreakableScript>().Damage(damage, hullmul, shieldyield);
                 Destroy(gameObject);
             }

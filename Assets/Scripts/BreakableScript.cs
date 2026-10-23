@@ -10,7 +10,7 @@ public class BreakableScript : MonoBehaviour
     {
         float size = Random.Range(50, 200);
         health = size;
-        transform.localScale = new Vector3(size / 50, size / 50, size / 50);
+        transform.localScale = new Vector3(size / 2, size / 2, size / 2);
     }
 
     // Update is called once per frame

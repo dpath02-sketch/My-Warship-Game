@@ -165,9 +165,19 @@ public class PlayerScript : MonoBehaviour
         Ray ray = cam.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
         RaycastHit hitPoint;
         Physics.Raycast(ray, out hitPoint, 5000);
-        for(int i = 0; i < turrets.Count; i += 1)
+        if (hitPoint.collider != null)
         {
-            turrets[i].GetComponent<TurretRelay>().Target(hitPoint.point);
+            for(int i = 0; i < turrets.Count; i += 1)
+            {
+                turrets[i].GetComponent<TurretRelay>().Target(hitPoint.point);
+            }
+        }
+        else
+        {
+           for(int i = 0; i < turrets.Count; i += 1)
+            {
+                turrets[i].GetComponent<TurretRelay>().Target(transform.position + cam.transform.forward * 5000);
+            } 
         }
     }
 }
