@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  baseSpeed: 0
+  baseSpeed: 260
   accel: 120
   agil: 112
   baseHull: 200

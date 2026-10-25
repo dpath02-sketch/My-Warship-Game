@@ -40,6 +40,18 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Mouse Lock
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (Cursor.lockState == CursorLockMode.Locked)
+            {
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+        }
         //Movement:
         CamMove(44.72F, 11.18F);
         if (Input.GetKey(KeyCode.R))
@@ -183,5 +195,10 @@ public class PlayerScript : MonoBehaviour
                 turrets[i].GetComponent<TurretRelay>().Target(transform.position + cam.transform.forward * 5000);
             } 
         }
+    }
+
+    public void CloseGame()
+    {
+        Application.Quit();
     }
 }

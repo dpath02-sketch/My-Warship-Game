@@ -48,6 +48,8 @@ public class EnemyScript : MonoBehaviour
                     speed = baseSpeed;
                 }
             }
+            //Target; look at it
+            TurnTowards(playerScript.transform);
         }
         else
         {
@@ -68,6 +70,14 @@ public class EnemyScript : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void TurnTowards(Transform otherTransform)
+    {
+        Quaternion oldRotation = transform.rotation;
+        transform.LookAt(otherTransform, transform.up);
+        Quaternion newRotation = transform.rotation;
+        transform.rotation = Quaternion.Lerp(oldRotation, newRotation, agil * Time.deltaTime / Quaternion.Angle(oldRotation, newRotation));
     }
 
     public void Damage(int dmg, float hullx, float shieldx) // It's official the damage script is universal
