@@ -87,6 +87,10 @@ public class PlayerScript : MonoBehaviour
         transform.Translate(new Vector3(0, 0, speed * Time.deltaTime), Space.Self);
         //Health:
         shield += shieldRgn * Time.deltaTime;
+        if (shield > baseShield)
+        {
+            shield = baseShield;
+        }
         HealthSliders();
         //Turrets
         AimTurrets();

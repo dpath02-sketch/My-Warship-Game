@@ -11,6 +11,7 @@ public class BreakableScript : MonoBehaviour
         float size = Random.Range(50, 200);
         health = size;
         transform.localScale = new Vector3(size / 2, size / 2, size / 2);
+        gameObject.GetComponent<Rigidbody>().mass = health;
     }
 
     // Update is called once per frame

@@ -14,13 +14,13 @@ public class Projectile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameObject.GetComponent<Rigidbody>().mass = damage;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(speed * Time.deltaTime, Space.World);
+        gameObject.GetComponent<Rigidbody>().velocity = speed;
         time += Time.deltaTime;
         if (time > timeMax)
         {
@@ -50,7 +50,7 @@ public class Projectile : MonoBehaviour
         else
         {
             // Target is not a ship, thats all we know
-            Debug.LogWarning("notPilot");
+            Debug.Log("notPilot");
             if (collision.gameObject.GetComponent<BreakableScript>() == null)
             {
                 //TODO Target is not a ship or breakable
