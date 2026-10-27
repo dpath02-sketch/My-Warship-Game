@@ -140,6 +140,7 @@ MonoBehaviour:
   hull: 200
   shield: 200
   shieldRgn: 2
+  tBS: {fileID: 9019844217597823598, guid: 4ba4fcaf4d4a20e41b27c0b63dee4972, type: 3}
   playerScript: {fileID: 0}
 --- !u!64 &7408731469639647834
 MeshCollider:
@@ -162,7 +163,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 2959467708922500008, guid: bbaffe930228476489c568d3fbcbfce1, type: 3}
+  m_Mesh: {fileID: -7107253115382911840, guid: bbaffe930228476489c568d3fbcbfce1, type: 3}
 --- !u!54 &570182720521596725
 Rigidbody:
   m_ObjectHideFlags: 0

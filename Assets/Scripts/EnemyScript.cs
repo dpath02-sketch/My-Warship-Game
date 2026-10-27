@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
@@ -13,8 +14,15 @@ public class EnemyScript : MonoBehaviour
     public float hull = 200;
     public float shield = 200;
     public float shieldRgn = 2F;
+    public GameObject tBS;
     private float armour = 0F;
     private float deflection = 0F;
+    private GameObject bigShot;
+    private float fireRate = 60 / 400; // 60 / RPM
+    private bool trigHeld = false;
+    private float coolDown = 0;
+    private bool fireSide = true;
+    private float realismFactor = 1; //made it 1 since it's kinda faster than the projectiles so that's an issue
     //TODO how to add multiple targets???
     public PlayerScript playerScript;
     // Start is called before the first frame update
@@ -33,50 +41,92 @@ public class EnemyScript : MonoBehaviour
         {
             shield = baseShield;
         }
+        // Weapons
+        if (trigHeld && coolDown <= 0)
+        {
+            Fire(fireSide);
+            coolDown = fireRate;
+            if (fireSide)
+            {
+                fireSide = false;
+            }
+            else
+            {
+                fireSide = true;
+            }
+        }
+        coolDown -= Time.deltaTime;
     }
 
     private void VirtualPilot()
     {
-        if ((playerScript.transform.position - transform.position).magnitude <= 625) //Also multiple targets would mean unique distances
+        if ((playerScript.transform.position - transform.position).magnitude <= 6250) //Also multiple targets would mean unique distances
         {
-            if (speed < baseSpeed) //Target; max speed
-            {
-                speed += accel * Time.deltaTime;
-                if (speed > baseSpeed)
-                {
-                    speed = baseSpeed;
-                }
-            }
+            SetSpeed(baseSpeed);
             //Target; look at it
-            TurnTowards(playerScript.transform);
+            if ((playerScript.transform.position - transform.position).magnitude <= TurningRadius())
+            {
+                TurnTowards((playerScript.transform.position - transform.position) * -1 + transform.position);
+            }
+            else if ((playerScript.transform.position - transform.position).magnitude >= TurningRadius() + speed * 5) //extra buffer for turning. speed's coefficient is seconds of fire time
+            {
+                TurnTowards(playerScript.transform.position);
+            }
+            else if (TargetInFOV(playerScript.transform.position, 180))
+            {
+                TurnTowards(playerScript.transform.position);
+            }
+            trigHeld = TargetInFOV(playerScript.transform.position, 120);
         }
         else
         {
-            if (speed > baseSpeed / 2) //No Target; half speed
+            SetSpeed(baseSpeed / 2);
+            trigHeld = false;
+        }
+    }
+
+    private void SetSpeed(float speedT)
+    {
+        if (speed > speedT)
+        {
+            speed -= accel * Time.deltaTime;
+            if (speed < speedT)
             {
-                speed -= accel * Time.deltaTime;
-                if (speed < baseSpeed /2)
-                {
-                    speed = baseSpeed / 2;
-                }
+                speed = speedT;
             }
-            else if (speed < baseSpeed / 2) //Below half speed; speed up
+        }
+        else if (speed < speedT)
+        {
+            speed += accel * Time.deltaTime;
+            if (speed > speedT)
             {
-                speed += accel * Time.deltaTime;
-                if (speed > baseSpeed / 2)
-                {
-                    speed = baseSpeed / 2;
-                }
+                speed = speedT;
             }
         }
     }
 
-    private void TurnTowards(Transform otherTransform)
+    private float TurningRadius()
+    {
+        float circumfrance = 180 / agil * speed;
+        float radius = circumfrance / Mathf.PI;
+        return radius;
+    }
+
+    private void TurnTowards(Vector3 otherTransform)
     {
         Quaternion oldRotation = transform.rotation;
         transform.LookAt(otherTransform, transform.up);
         Quaternion newRotation = transform.rotation;
         transform.rotation = Quaternion.Lerp(oldRotation, newRotation, agil * Time.deltaTime / Quaternion.Angle(oldRotation, newRotation));
+    }
+
+    private bool TargetInFOV(Vector3 target, float fov)
+    {
+        Quaternion oldRotation = transform.rotation;
+        transform.LookAt(target, transform.up);
+        Quaternion newRotation = transform.rotation;
+        transform.rotation = oldRotation;
+        return Quaternion.Angle(oldRotation, newRotation) < fov / 2; //half cause it goes both ways
     }
 
     public void Damage(int dmg, float hullx, float shieldx) // It's official the damage script is universal
@@ -95,6 +145,10 @@ public class EnemyScript : MonoBehaviour
         {
             float local = (inDmg - deflection) * shield / baseShield * 10; // realise since shield is in the calc hull's calc is affefcted by the damage taken
             shield -= Mathf.Ceil(local); // less sheild remaining = more hull damage
+            if (shield < 0)
+            {
+                shield = 0;
+            }
             inDmg -= local; // shield absored some damge
             inDmg = inDmg * hullx / shieldx - armour; // convert remaining shield damage for hull\
             hull -= Mathf.Ceil(inDmg); // finaly taking damage to the ship itself. K.I.S.S can go K.Y.S
@@ -103,6 +157,22 @@ public class EnemyScript : MonoBehaviour
                 //TODO propper death
                 Destroy(gameObject);
             }
+        }
+    }
+
+    void Fire(bool right)
+    {
+        if (right)
+        {
+            bigShot = Instantiate(tBS, transform.position + transform.right * 2.15F + transform.forward * 1.62648F, transform.rotation);
+            // Realism factor is how much conservation of momentum affects things
+            bigShot.GetComponent<Projectile>().OnSummon(transform.forward * 110 + transform.forward * speed * realismFactor, 5000 / 110, 18, 1, 1, true);
+        }
+        else
+        {
+            bigShot = Instantiate(tBS, transform.position + transform.right * -2.15F + transform.forward * 1.62648F, transform.rotation);
+            // Realism factor is how much conservation of momentum affects things
+            bigShot.GetComponent<Projectile>().OnSummon(transform.forward * 110 + transform.forward * speed * realismFactor, 5000 / 110, 18, 1, 1, true);
         }
     }
 }

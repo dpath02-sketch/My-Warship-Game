@@ -1132,7 +1132,7 @@ GameObject:
   - component: {fileID: 782206907}
   - component: {fileID: 782206906}
   m_Layer: 5
-  m_Name: Button
+  m_Name: CloseButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1183,7 +1183,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -2263,6 +2263,8 @@ MonoBehaviour:
   - {fileID: 904616400}
   - {fileID: 187429227}
   - {fileID: 2108111576}
+  close: {fileID: 782206906}
+  closeText: {fileID: 1601144165}
 --- !u!4 &1567207342
 Transform:
   m_ObjectHideFlags: 0
@@ -2326,9 +2328,9 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: -3555975389013549174, guid: 2bc49abf514397249be716b77b79029d, type: 3}
+  m_Mesh: {fileID: 603530014252821547, guid: 2bc49abf514397249be716b77b79029d, type: 3}
 --- !u!1 &1601144163
 GameObject:
   m_ObjectHideFlags: 0

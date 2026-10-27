@@ -11,6 +11,7 @@ public class Projectile : MonoBehaviour
     int damage = 0;
     float hullmul = 0;
     float shieldyield = 0;
+    bool targetP = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,29 +29,41 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision) //TODO assumed that not targeting the player makes you the player and you know what they say about assuming.
     {
         if (collision.gameObject.tag == "isPilot")
         {
             // Target is a ship of some kind
-            Debug.LogWarning("isPilot");
             if (collision.gameObject.GetComponent<PlayerScript>() == null)
             {
                 //TODO Target is a ship that's not the player.
-                Debug.LogWarning("notPlayer");
-                Destroy(gameObject);
+                if (targetP)
+                {
+                    Debug.LogWarning("notPlayer");
+                }
+                else
+                {
+                    Destroy(gameObject);
+                }
             }
             else
             {
-                // Target is the player. don't damage
-                Debug.LogWarning("isPlayer");
-                Destroy(gameObject);
+                // Target is the player. don't damage (unless your an enemy's shot)
+                if (targetP)
+                {
+                    Debug.Log("isPlayer");
+                    collision.gameObject.GetComponent<PlayerScript>().Damage(damage, hullmul, shieldyield);
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    Destroy(gameObject);
+                }
             }
         }
         else
         {
             // Target is not a ship, thats all we know
-            Debug.Log("notPilot");
             if (collision.gameObject.GetComponent<BreakableScript>() == null)
             {
                 //TODO Target is not a ship or breakable
@@ -65,12 +78,13 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    public void OnSummon(Vector3 spd, float mx, int dmg, float hm, float sy)
+    public void OnSummon(Vector3 spd, float mx, int dmg, float hm, float sy, bool tP)
     {
         speed = spd;
         timeMax = mx;
         damage = dmg;
         hullmul = hm;
         shieldyield = sy;
+        targetP = tP;
     }
 }

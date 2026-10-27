@@ -12,7 +12,7 @@ public class TurretScript : MonoBehaviour
     float fireRate = 60 / 60; // 60 / RPM
     private float coolDown = 0;
     private GameObject bigShot;
-    private float realismFactor = 0.5F;
+    private float realismFactor = 0; //kept as 0 FOR NOW since hitting still targets is more intuative this way. STILL KEEPING THE VARIABLE as an option though
     void Start()
     {
         
@@ -38,6 +38,7 @@ public class TurretScript : MonoBehaviour
     {
         bigShot = Instantiate(tBS, transform.position, transform.rotation);
         // Realism factor is how much conservation of momentum affects things
-        bigShot.GetComponent<Projectile>().OnSummon(transform.forward * 110 + ship.transform.forward * ship.GetComponent<PlayerScript>().speed * realismFactor, 2500 / 110, 10, 1, 1); // Add ships speed to projectile. slightly exploitable but idc
+        bigShot.GetComponent<Projectile>().OnSummon(transform.forward * 330 + ship.transform.forward * ship.GetComponent<PlayerScript>().speed * realismFactor, 2500 / 110, 10, 1, 1, false); // Add ships speed to projectile. slightly exploitable but idc
+        //TODO raycast so i can bump the speed up, don't ditch the 110 number though cause realismFactor
     }
 }
