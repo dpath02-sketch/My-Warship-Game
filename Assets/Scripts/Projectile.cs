@@ -21,7 +21,6 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gameObject.GetComponent<Rigidbody>().velocity = speed;
         time += Time.deltaTime;
         if (time > timeMax)
         {
@@ -36,14 +35,34 @@ public class Projectile : MonoBehaviour
             // Target is a ship of some kind
             if (collision.gameObject.GetComponent<PlayerScript>() == null)
             {
-                //TODO Target is a ship that's not the player.
+                //Target is a ship that's not the player.
                 if (targetP)
                 {
                     Debug.LogWarning("notPlayer");
                 }
                 else
                 {
-                    Destroy(gameObject);
+                    if (collision.gameObject.GetComponent<EnemyScript>() == null && collision.gameObject.GetComponent<EnemyShipScript>() == null)
+                    {
+                        //Target isn't a player or enemy? idk just log smthn
+                        Debug.LogWarning("UPO (Unidentifiable Pilot Object)");
+                        Destroy(gameObject);
+                    }
+                    else
+                    {
+                        if (collision.gameObject.GetComponent<EnemyShipScript>() == null)
+                        {
+                            collision.gameObject.GetComponent<EnemyScript>().Damage(damage, hullmul, shieldyield);
+                            Debug.Log(collision.gameObject.GetComponent<EnemyScript>().hull + collision.gameObject.GetComponent<EnemyScript>().shield);
+                            Destroy(gameObject);
+                        }
+                        else
+                        {
+                            collision.gameObject.GetComponent<EnemyShipScript>().Damage(damage, hullmul, shieldyield);
+                            Debug.Log(collision.gameObject.GetComponent<EnemyShipScript>().hull + collision.gameObject.GetComponent<EnemyShipScript>().shield);
+                            Destroy(gameObject);
+                        }
+                    }
                 }
             }
             else
@@ -51,7 +70,6 @@ public class Projectile : MonoBehaviour
                 // Target is the player. don't damage (unless your an enemy's shot)
                 if (targetP)
                 {
-                    Debug.Log("isPlayer");
                     collision.gameObject.GetComponent<PlayerScript>().Damage(damage, hullmul, shieldyield);
                     Destroy(gameObject);
                 }
@@ -66,8 +84,17 @@ public class Projectile : MonoBehaviour
             // Target is not a ship, thats all we know
             if (collision.gameObject.GetComponent<BreakableScript>() == null)
             {
-                //TODO Target is not a ship or breakable
-                Destroy(gameObject);
+                //Target is not a ship or breakable
+                if (collision.gameObject.GetComponent<Projectile>() == null)
+                {
+                    //Target isn't even a projectile. wtf
+                    Debug.LogWarning("UGO (Unidentifiable Generic Object)");
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    //Target is a projectile... so what?
+                }
             }
             else
             {
@@ -86,5 +113,6 @@ public class Projectile : MonoBehaviour
         hullmul = hm;
         shieldyield = sy;
         targetP = tP;
+        gameObject.GetComponent<Rigidbody>().velocity = speed;
     }
 }

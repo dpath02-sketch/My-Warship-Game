@@ -15,8 +15,8 @@ public class PlayerScript : MonoBehaviour
     public GameObject cam;
     public float camSens = 5.3F;
     public float speed = 0;
-    public float baseSpeed = 220;
-    public float accel = 60;
+    public float baseSpeed = 100;
+    public float accel = 27;
     public float agil = 61.5F;
     public int baseHull = 2750;
     public int baseShield = 2750;
@@ -32,14 +32,16 @@ public class PlayerScript : MonoBehaviour
     public TMP_Text dmgText;
     public TMP_Text hullText;
     public TMP_Text shieldText;
+    public TMP_Text speedText;
     private float camLat = 0;
     private float camLon = 0;
     private float armour = 1.5F;
     private float deflection = 1.5F;
     private List<float> damages = new List<float>();
     private List<float> times = new List<float>();
-    //TODO alpha and dps meter. aplha in % of health and DPS in time left to death
+    private float recTime = 5;
     // Start is called before the first frame update
+    //TODO make PDT target the fighter, reduce DPS
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -122,7 +124,7 @@ public class PlayerScript : MonoBehaviour
         HealthSliders();
         //Turrets
         AimTurrets();
-        RenderDamage();
+        RenderHUDText();
     }
 
     private void CamMove(float dist, float height)
@@ -226,7 +228,7 @@ public class PlayerScript : MonoBehaviour
         toTimeList.Add(Time.time);
     }
 
-    private void RenderDamage()
+    private void RenderHUDText()
     {
         CleanRegistry();
         float DPS = 0;
@@ -239,6 +241,7 @@ public class PlayerScript : MonoBehaviour
                 potentialAplha = damages[i];
             }
         }
+        DPS = DPS / recTime; //1 is the recording time
         int mins = Mathf.FloorToInt((hull + shield) / DPS / 60);
         int secs = Mathf.FloorToInt((hull + shield) / DPS - mins * 60);
         float relAlpha = potentialAplha / (hull + shield) * 100;
@@ -250,8 +253,9 @@ public class PlayerScript : MonoBehaviour
         {
             dmgText.text = "Infinite, " + relAlpha.ToString("0.00") + "%";
         }
-        hullText.text = Mathf.FloorToInt(hull / baseHull * 100).ToString() + "%";
-        shieldText.text = Mathf.FloorToInt(shield / baseShield * 100).ToString() + "%";
+        hullText.text = Mathf.FloorToInt(hull / baseHull * 100).ToString("0") + "%";
+        shieldText.text = Mathf.FloorToInt(shield / baseShield * 100).ToString("0") + "%";
+        speedText.text = speed.ToString("0") + "/" + baseSpeed.ToString("0");
     }
 
     private void CleanRegistry()
@@ -260,7 +264,7 @@ public class PlayerScript : MonoBehaviour
         List<float> tempDamages = new List<float>();
         for (int i = 0; i < times.Count; i += 1)
         {
-            if (times[i] >= Time.time - 2)
+            if (times[i] >= Time.time - recTime)
             {
                 tempTime.Add(times[i]);
                 tempDamages.Add(damages[i]);

@@ -6,23 +6,23 @@ using UnityEngine;
 public class EnemyScript : MonoBehaviour
 {
     public float speed = 0;
-    public float baseSpeed = 260;
-    public float accel = 120;
+    public float baseSpeed = 50;
+    public float accel = 46;
     public float agil = 112F;
-    public int baseHull = 200;
-    public int baseShield = 200;
-    public float hull = 200;
-    public float shield = 200;
-    public float shieldRgn = 2F;
+    public int baseHull = 100;
+    public int baseShield = 100;
+    public float hull = 100;
+    public float shield = 100;
+    public float shieldRgn = 1;
     public GameObject tBS;
-    private float armour = 0F;
-    private float deflection = 0F;
+    private float armour = 0;
+    private float deflection = 0;
     private GameObject bigShot;
-    private float fireRate = 60 / 400; // 60 / RPM
+    private float fireRate = 0.3F; // 60 / RPM
     private bool trigHeld = false;
     private float coolDown = 0;
     private bool fireSide = true;
-    private float realismFactor = 1; //made it 1 since it's kinda faster than the projectiles so that's an issue
+    private float realismFactor = 0; //made it 1 since it's kinda faster than the projectiles so that's an issue
     //TODO how to add multiple targets???
     public PlayerScript playerScript;
     // Start is called before the first frame update
@@ -60,7 +60,7 @@ public class EnemyScript : MonoBehaviour
 
     private void VirtualPilot()
     {
-        if ((playerScript.transform.position - transform.position).magnitude <= 6250) //Also multiple targets would mean unique distances
+        if ((playerScript.transform.position - transform.position).magnitude <= 5000) //Also multiple targets would mean unique distances
         {
             SetSpeed(baseSpeed);
             //Target; look at it
@@ -68,11 +68,11 @@ public class EnemyScript : MonoBehaviour
             {
                 TurnTowards((playerScript.transform.position - transform.position) * -1 + transform.position);
             }
-            else if ((playerScript.transform.position - transform.position).magnitude >= TurningRadius() + speed * 5) //extra buffer for turning. speed's coefficient is seconds of fire time
+            else if ((playerScript.transform.position - transform.position).magnitude >= TurningRadius() + speed * 5 / 2) //extra buffer for turning. speed's coefficient is seconds of fire time
             {
                 TurnTowards(playerScript.transform.position);
             }
-            else if (TargetInFOV(playerScript.transform.position, 180))
+            else if (TargetInFOV(playerScript.transform.position, 120))
             {
                 TurnTowards(playerScript.transform.position);
             }
@@ -81,6 +81,7 @@ public class EnemyScript : MonoBehaviour
         else
         {
             SetSpeed(baseSpeed / 2);
+            TurnTowards(new Vector3(0, 0, 0));
             trigHeld = false;
         }
     }
@@ -166,13 +167,13 @@ public class EnemyScript : MonoBehaviour
         {
             bigShot = Instantiate(tBS, transform.position + transform.right * 2.15F + transform.forward * 1.62648F, transform.rotation);
             // Realism factor is how much conservation of momentum affects things
-            bigShot.GetComponent<Projectile>().OnSummon(transform.forward * 110 + transform.forward * speed * realismFactor, 5000 / 110, 18, 1, 1, true);
+            bigShot.GetComponent<Projectile>().OnSummon(transform.forward * 200 + transform.forward * speed * realismFactor, 5000 / 200, 9, 1, 1, true);
         }
         else
         {
             bigShot = Instantiate(tBS, transform.position + transform.right * -2.15F + transform.forward * 1.62648F, transform.rotation);
             // Realism factor is how much conservation of momentum affects things
-            bigShot.GetComponent<Projectile>().OnSummon(transform.forward * 110 + transform.forward * speed * realismFactor, 5000 / 110, 18, 1, 1, true);
+            bigShot.GetComponent<Projectile>().OnSummon(transform.forward * 200 + transform.forward * speed * realismFactor, 5000 / 200, 9, 1, 1, true);
         }
     }
 }

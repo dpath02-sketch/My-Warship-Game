@@ -132,14 +132,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  baseSpeed: 260
-  accel: 120
+  baseSpeed: 50
+  accel: 23
   agil: 112
-  baseHull: 200
-  baseShield: 200
-  hull: 200
-  shield: 200
-  shieldRgn: 2
+  baseHull: 100
+  baseShield: 100
+  hull: 100
+  shield: 100
+  shieldRgn: 1
   tBS: {fileID: 9019844217597823598, guid: 4ba4fcaf4d4a20e41b27c0b63dee4972, type: 3}
   playerScript: {fileID: 0}
 --- !u!64 &7408731469639647834

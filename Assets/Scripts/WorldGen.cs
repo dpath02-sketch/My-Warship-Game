@@ -6,6 +6,7 @@ public class WorldGen : MonoBehaviour
 {
     public GameObject rockAsset;
     public GameObject fighterAsset;
+    public GameObject shipAsset;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +27,7 @@ public class WorldGen : MonoBehaviour
             transform.localEulerAngles = new Vector3(Random.Range(-180, 180), Random.Range(-180, 180), Random.Range(-180, 180));
             transform.position = new Vector3(0, 0, 0);
             float temp = Random.Range(0.5F, 1);
-            transform.Translate(new Vector3(0, 0, temp * temp * 1250));
+            transform.Translate(new Vector3(0, 0, temp * temp * 2500));
             //rand dir
             transform.localEulerAngles = new Vector3(Random.Range(-180, 180), Random.Range(-180, 180), Random.Range(-180, 180));
             //spawn
@@ -40,5 +41,13 @@ public class WorldGen : MonoBehaviour
         transform.localEulerAngles = new Vector3(Random.Range(-180, 180), Random.Range(-180, 180), Random.Range(-180, 180));
         //spawn
         Instantiate(fighterAsset, transform.position, transform.rotation);
+        // Ship
+        transform.localEulerAngles = new Vector3(Random.Range(-180, 180), Random.Range(-180, 180), Random.Range(-180, 180));
+        transform.position = new Vector3(0, 0, 0);
+        transform.Translate(new Vector3(0, 0, 625));
+        //rand dir
+        transform.localEulerAngles = new Vector3(Random.Range(-180, 180), Random.Range(-180, 180), Random.Range(-180, 180));
+        //spawn
+        Instantiate(shipAsset, transform.position, transform.rotation);
     }
 }
