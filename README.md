@@ -10,7 +10,9 @@ New Hackclub event = new project cause why not.
   <li>Moving ship.</li>
   <li>Guns that shoot projectiles</li>
   <li>Random Asteroid generation</li>
-  <li><b>THE ORB</b></li>
+  <li><b>THE ORB (to be removed)</b></li>
+  <li>Pesky enemy</li>
+  <li>Physics on the bullets and asteroids</li>
 </ul>
 <h2>Bugs</h2>
 <ul>
