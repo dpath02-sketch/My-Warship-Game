@@ -20,7 +20,7 @@ public class EnemyScript : MonoBehaviour
     private float armour = 0;
     private float deflection = 0;
     private GameObject bigShot;
-    private float fireRate = 0.3F; // 60 / RPM
+    private float fireRate = 0.15F; // 60 / RPM
     private bool trigHeld = false;
     private float coolDown = 0;
     private bool fireSide = true;
@@ -109,7 +109,7 @@ public class EnemyScript : MonoBehaviour
 
     private void VirtualPilot()
     {
-        if ((playerScript.transform.position - transform.position).magnitude <= 5000) //Also multiple targets would mean unique distances
+        if ((playerScript.transform.position - transform.position).magnitude <= 2500) //Also multiple targets would mean unique distances
         {
             SetSpeed(baseSpeed);
             //Target; look at it
@@ -117,7 +117,7 @@ public class EnemyScript : MonoBehaviour
             {
                 TurnTowards((playerScript.transform.position - transform.position) * -1 + transform.position);
             }
-            else if ((playerScript.transform.position - transform.position).magnitude >= TurningRadius() + speed * 5 / 2) //extra buffer for turning. speed's coefficient is seconds of fire time
+            else if ((playerScript.transform.position - transform.position).magnitude >= TurningRadius() + speed * 5) //extra buffer for turning. speed's coefficient is seconds of fire time
             {
                 TurnTowards(playerScript.transform.position);
             }
@@ -229,13 +229,13 @@ public class EnemyScript : MonoBehaviour
         {
             bigShot = Instantiate(tBS, transform.position + transform.right * 2.15F + transform.forward * 1.62648F, transform.rotation);
             // Realism factor is how much conservation of momentum affects things
-            bigShot.GetComponent<Projectile>().OnSummon(transform.forward * 200 + transform.forward * speed * realismFactor, 5000 / 200, 9, 1, 1, true);
+            bigShot.GetComponent<Projectile>().OnSummon(transform.forward * 200 + transform.forward * speed * realismFactor, 5000 / 200, 18, 1, 1, true);
         }
         else
         {
             bigShot = Instantiate(tBS, transform.position + transform.right * -2.15F + transform.forward * 1.62648F, transform.rotation);
             // Realism factor is how much conservation of momentum affects things
-            bigShot.GetComponent<Projectile>().OnSummon(transform.forward * 200 + transform.forward * speed * realismFactor, 5000 / 200, 9, 1, 1, true);
+            bigShot.GetComponent<Projectile>().OnSummon(transform.forward * 200 + transform.forward * speed * realismFactor, 5000 / 200, 18, 1, 1, true);
         }
     }
 }

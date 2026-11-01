@@ -149,14 +149,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  baseSpeed: 50
-  accel: 13.5
+  baseSpeed: 75
+  accel: 27
   agil: 61.5
-  baseHull: 1375
-  baseShield: 1375
-  hull: 1375
-  shield: 1375
-  shieldRgn: 5.25
+  baseHull: 687
+  baseShield: 687
+  hull: 687
+  shield: 687
+  shieldRgn: 2.625
   tBS: {fileID: 9019844217597823598, guid: 4ba4fcaf4d4a20e41b27c0b63dee4972, type: 3}
   playerScript: {fileID: 0}
   canvas: {fileID: 0}
