@@ -30,6 +30,7 @@ public class EnemyScript : MonoBehaviour
     private Slider hullInstance;
     private TMP_Text damageTextInstance;
     private float yTTL = 0;
+    private float temp;
     public PlayerScript playerScript;
     public Canvas canvas;
     public Slider hullSlider;
@@ -181,15 +182,18 @@ public class EnemyScript : MonoBehaviour
     public void Damage(int dmg, float hullx, float shieldx) // It's official the damage script is universal
     {
         float inDmg = dmg * shieldx; // incomming damage, currently for shield
-        float temp = shield + hull;
         //UI stuff
         if (null != damageTextInstance)
         {
             Destroy(damageTextInstance.gameObject);
         }
+        else
+        {
+            temp = shield + hull;
+        }
         damageTextInstance = Instantiate(damageText, canvas.GetComponent<RectTransform>());
-        damageTextInstance.transform.position = Camera.main.WorldToScreenPoint(transform.position) + Random.insideUnitSphere * 100;
-        yTTL = 2;
+        damageTextInstance.transform.position = Camera.main.WorldToScreenPoint(transform.position) + Random.insideUnitSphere * 50;
+        yTTL = 1;
         if (shield / baseShield > 0.1) // if shield is low consider damaging hull
         {
             shield -= Mathf.Ceil(inDmg - deflection); //Ceil to guarantee some damage
