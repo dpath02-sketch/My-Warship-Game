@@ -10,11 +10,11 @@ New Hackclub event = new project cause why not.
   <li>Moving ship.</li>
   <li>Guns that shoot projectiles</li>
   <li>Random Asteroid generation</li>
-  <li><b>THE ORB (to be removed)</b></li>
-  <li>Pesky enemy</li>
+  <li>Pesky enemies</li>
   <li>Physics on the bullets and asteroids</li>
 </ul>
 <h2>Bugs</h2>
 <ul>
   <li>The turrets on the side of the ship don't accurately point to the target. This does seem to be purely a visual issue though and so is low priority</li>
+  <li>Object rendering looks weird near the edge of the view distance. I don't write the rendering code so I don't know how to fix this</li>
 </ul>
