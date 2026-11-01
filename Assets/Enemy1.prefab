@@ -142,6 +142,10 @@ MonoBehaviour:
   shieldRgn: 1
   tBS: {fileID: 9019844217597823598, guid: 4ba4fcaf4d4a20e41b27c0b63dee4972, type: 3}
   playerScript: {fileID: 0}
+  canvas: {fileID: 0}
+  hullSlider: {fileID: 46364134508192162, guid: 943860597567a9640825feea902b35d2, type: 3}
+  shieldSlider: {fileID: 1549079621628577352, guid: 04fafa3837a8ab04c827b4ca1d20dde6, type: 3}
+  damageText: {fileID: 6520296663592253494, guid: 23f3a21e71ae1f04a8a0c8b47c22dc73, type: 3}
 --- !u!64 &7408731469639647834
 MeshCollider:
   m_ObjectHideFlags: 0

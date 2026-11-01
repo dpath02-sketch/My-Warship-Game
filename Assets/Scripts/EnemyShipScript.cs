@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyShipScript : MonoBehaviour
 {
@@ -22,11 +24,25 @@ public class EnemyShipScript : MonoBehaviour
     private float coolDown = 0;
     private float realismFactor = 0; //Pasta
     //TODO how to add multiple targets???
+     private Slider shieldInstance;
+    private Slider hullInstance;
+    private TMP_Text damageTextInstance;
+    private float yTTL = 0;
     public PlayerScript playerScript;
+    public Canvas canvas;
+    public Slider hullSlider;
+    public Slider shieldSlider;
+    public TMP_Text damageText;
+    private Vector3 targetPos = new Vector3(0, 0, 0);
     // Start is called before the first frame update
     void Start()
     {
         playerScript = GameObject.FindGameObjectWithTag("isPilot").GetComponent<PlayerScript>();
+        canvas = FindAnyObjectByType<Canvas>();
+        shieldInstance = Instantiate(shieldSlider, canvas.GetComponentInParent<RectTransform>());
+        hullInstance = Instantiate(hullSlider, canvas.GetComponent<RectTransform>());
+        shieldInstance.maxValue = baseShield;
+        hullInstance.maxValue = baseHull;
     }
 
     // Update is called once per frame
@@ -46,11 +62,43 @@ public class EnemyShipScript : MonoBehaviour
             coolDown = fireRateS;
         }
         coolDown -= Time.deltaTime;
+        yTTL -= Time.deltaTime;
+        if (null != damageTextInstance && yTTL <= 0)
+        {
+            Destroy(damageTextInstance.gameObject);
+        }
+    }
+
+    void LateUpdate()
+    {
+        if (Camera.main.WorldToScreenPoint(transform.position).z >= 0)
+        {
+            shieldInstance.transform.position = Camera.main.WorldToScreenPoint(transform.position);
+            shieldInstance.transform.position += new Vector3(0, -200 / shieldInstance.transform.position.z, 0);
+            hullInstance.transform.position = Camera.main.WorldToScreenPoint(transform.position);
+            hullInstance.transform.position += new Vector3(0, -200 / hullInstance.transform.position.z -10, 0);
+            shieldInstance.value = shield;
+            hullInstance.value = hull;
+        }
+        else
+        {
+            shieldInstance.transform.position = new Vector3(float.MaxValue, 0, 0);
+            hullInstance.transform.position = new Vector3(float.MaxValue, 0, 0);
+        }
+    }
+
+    void OnDestroy()
+    {
+        Destroy(shieldInstance.gameObject);
+        Destroy(hullInstance.gameObject);
+        if (null != damageTextInstance)
+        {
+            Destroy(damageTextInstance.gameObject);
+        }
     }
 
     private void VirtualPilot()
     {
-        Vector3 targetPos = new Vector3(0, 0, 0);
         if ((playerScript.transform.position - transform.position).magnitude <= 5000) //Also multiple targets would mean unique distances
         {
             SetSpeed(baseSpeed);
@@ -118,6 +166,15 @@ public class EnemyShipScript : MonoBehaviour
     public void Damage(int dmg, float hullx, float shieldx) // It's official the damage script is universal
     {
         float inDmg = dmg * shieldx; // incomming damage, currently for shield
+        float temp = shield + hull;
+        //UI stuff
+        if (null != damageTextInstance)
+        {
+            Destroy(damageTextInstance.gameObject);
+        }
+        damageTextInstance = Instantiate(damageText, canvas.GetComponent<RectTransform>());
+        damageTextInstance.transform.position = Camera.main.WorldToScreenPoint(transform.position) + Random.insideUnitSphere * 100;
+        yTTL = 2;
         if (shield / baseShield > 0.1) // if shield is low consider damaging hull
         {
             shield -= Mathf.Ceil(inDmg - deflection); //Ceil to guarantee some damage
@@ -144,6 +201,7 @@ public class EnemyShipScript : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        damageTextInstance.text = Mathf.RoundToInt(temp - shield - hull).ToString();
     }
 
     void Fire()
