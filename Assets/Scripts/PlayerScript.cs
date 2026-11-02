@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 using Unity.VisualScripting.FullSerializer;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
@@ -29,6 +30,8 @@ public class PlayerScript : MonoBehaviour
     public List<GameObject> turrets;
     public Button close;
     public TMP_Text closeText;
+    public Button softClose;
+    public TMP_Text softCloseText;
     public TMP_Text dmgText;
     public TMP_Text hullText;
     public TMP_Text shieldText;
@@ -49,6 +52,8 @@ public class PlayerScript : MonoBehaviour
         SpeedSlider();
         close.interactable = false;
         closeText.color = new Color(0, 0, 0, 0);
+        softClose.interactable = false;
+        softCloseText.color = new Color(0, 0, 0, 0);
     }
 
     // Update is called once per frame
@@ -62,12 +67,16 @@ public class PlayerScript : MonoBehaviour
                 Cursor.lockState = CursorLockMode.None;
                 close.interactable = true;
                 closeText.color = new Color(255, 255, 255, 255);
+                softClose.interactable = true;
+            softCloseText.color = new Color(255, 255, 255, 255);
             }
             else
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 close.interactable = false;
                 closeText.color = new Color(0, 0, 0, 0);
+                softClose.interactable = false;
+                softCloseText.color = new Color(0, 0, 0, 0);
             }
         }
         //Movement:
@@ -277,5 +286,10 @@ public class PlayerScript : MonoBehaviour
     public void CloseGame()
     {
         Application.Quit();
+    }
+
+    public void ReturnToMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }

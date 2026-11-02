@@ -18,3 +18,8 @@ New Hackclub event = new project cause why not.
 <ul>
   <li>The turrets on the side of the ship don't accurately point to the target. This does seem to be purely a visual issue though and so is low priority</li>
 </ul>
+<h2>Credits</h2>
+<ul>
+  <li>Sky Box Generator: mikletuapse @ https://mikletuapse.itch.io/space-skybox-generator<br>
+  Genuinley amazing tool I don't care that I probably don't need to mention it I'm going to anyway please check this out!</li>
+</ul>
