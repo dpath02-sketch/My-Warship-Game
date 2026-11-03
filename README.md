@@ -4,7 +4,7 @@ New Hackclub event = new project cause why not.
 <p>This is a Unity game where you fly a space ship and engage in combat. (That's all my ideas so far I'm still working on it)</p>
 <h2>Instructions</h2>
 <p>Go to the Itch IO page and download the zip file. Once it's been unzipped run WarProjectFolder.exe.<br>
-<b>!There is currently no way to properly exit the game. To exit press windows to bring up the taskbar and close the program from that!</b></p>
+[Itch Page](https://dpath02.itch.io/warships)</p>
 <h2>Features</h2>
 <ul>
   <li>Moving ship.</li>
