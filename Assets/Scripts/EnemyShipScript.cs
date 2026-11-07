@@ -7,19 +7,19 @@ using UnityEngine.UI;
 public class EnemyShipScript : MonoBehaviour
 {
     public float speed = 0;
-    public float baseSpeed = 50; //Halving all speeds to try and dial things back
+    public float baseSpeed = 100; //Serialised to 50 so you can catch up
     public float accel = 27;
     public float agil = 61.5F;
-    public int baseHull = 1375;
+    public int baseHull = 1375; //Nerf
     public int baseShield = 1375;
     public float hull = 1375;
     public float shield = 1375;
-    public float shieldRgn = 5.25F;
+    public float shieldRgn = 5.3F;
     public GameObject tBS;
     private float armour = 0.75F;
     private float deflection = 0.75F;
     private GameObject bigShot;
-    private float fireRateS = 1; // 60 / RPM
+    private float fireRateS = 1.33F; // 60 / RPM
     private bool trigHeld = false;
     private float coolDown = 0;
     private float realismFactor = 0; //Pasta
@@ -38,7 +38,7 @@ public class EnemyShipScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerScript = GameObject.FindGameObjectWithTag("isPilot").GetComponent<PlayerScript>();
+        playerScript = FindAnyObjectByType<PlayerScript>();
         canvas = FindAnyObjectByType<Canvas>();
         shieldInstance = Instantiate(shieldSlider, canvas.GetComponentInParent<RectTransform>());
         hullInstance = Instantiate(hullSlider, canvas.GetComponent<RectTransform>());
@@ -75,9 +75,9 @@ public class EnemyShipScript : MonoBehaviour
         if (Camera.main.WorldToScreenPoint(transform.position).z >= 0)
         {
             shieldInstance.transform.position = Camera.main.WorldToScreenPoint(transform.position);
-            shieldInstance.transform.position += new Vector3(0, -200 / shieldInstance.transform.position.z, 0);
+            shieldInstance.transform.position += new Vector3(0, -4800 / shieldInstance.transform.position.z, 0);
             hullInstance.transform.position = Camera.main.WorldToScreenPoint(transform.position);
-            hullInstance.transform.position += new Vector3(0, -200 / hullInstance.transform.position.z -10, 0);
+            hullInstance.transform.position += new Vector3(0, -4800 / hullInstance.transform.position.z -10, 0);
             shieldInstance.value = shield;
             hullInstance.value = hull;
         }
@@ -106,7 +106,7 @@ public class EnemyShipScript : MonoBehaviour
             // Goto random point within some distance
             if (targetPos == new Vector3(0, 0, 0) || (targetPos - transform.position).magnitude <= TurningRadius())
             {
-                targetPos = playerScript.transform.position + Random.insideUnitSphere * 1250;
+                targetPos = playerScript.transform.position + Random.insideUnitSphere * 937.5F;
             }
             TurnTowards(targetPos);
             trigHeld = true;
@@ -202,6 +202,7 @@ public class EnemyShipScript : MonoBehaviour
             if (hull <= 0)
             {
                 //TODO propper death
+                playerScript.score += Mathf.RoundToInt((baseHull + baseShield) * 18 / fireRateS);
                 Destroy(gameObject);
             }
         }
@@ -217,18 +218,18 @@ public class EnemyShipScript : MonoBehaviour
         // FU
         bigShot = Instantiate(tBS, transform.position + transform.forward * 5.99251F + transform.up * 1.61515F, transform.rotation);
         // Realism factor is how much conservation of momentum affects things
-        bigShot.GetComponent<Projectile>().OnSummon(targetDir * 200 + transform.forward * speed * realismFactor, 5000 / 200, 10, 1, 1, true);
+        bigShot.GetComponent<Projectile>().OnSummon(targetDir * 200 + transform.forward * speed * realismFactor, 4000 / 200, 30, 1, 1, true);
          // FD
         bigShot = Instantiate(tBS, transform.position + transform.forward * 5.99251F + transform.up * -1.61515F, transform.rotation);
         // Realism factor is how much conservation of momentum affects things
-        bigShot.GetComponent<Projectile>().OnSummon(targetDir * 200 + transform.forward * speed * realismFactor, 5000 / 200, 10, 1, 1, true);
+        bigShot.GetComponent<Projectile>().OnSummon(targetDir * 200 + transform.forward * speed * realismFactor, 4000 / 200, 30, 1, 1, true);
          // BU
         bigShot = Instantiate(tBS, transform.position + transform.forward * -5.99251F + transform.up * 1.61515F, transform.rotation);
         // Realism factor is how much conservation of momentum affects things
-        bigShot.GetComponent<Projectile>().OnSummon(targetDir * 200 + transform.forward * speed * realismFactor, 5000 / 200, 10, 1, 1, true);
+        bigShot.GetComponent<Projectile>().OnSummon(targetDir * 200 + transform.forward * speed * realismFactor, 4000 / 200, 30, 1, 1, true);
          // BD
         bigShot = Instantiate(tBS, transform.position + transform.forward * -5.99251F + transform.up * -1.61515F, transform.rotation);
         // Realism factor is how much conservation of momentum affects things
-        bigShot.GetComponent<Projectile>().OnSummon(targetDir * 200 + transform.forward * speed * realismFactor, 5000 / 200, 10, 1, 1, true);
+        bigShot.GetComponent<Projectile>().OnSummon(targetDir * 200 + transform.forward * speed * realismFactor, 4000 / 200, 30, 1, 1, true);
     }
 }

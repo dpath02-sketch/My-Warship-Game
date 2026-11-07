@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BreakableScript : MonoBehaviour
 {
     float health; //TODO gotta somehow make this at least semi-data-driven
+    float size;
+    private PlayerScript playerScript; //TODO only here for score counter, which is honestly kinda temporary but I'm outta ideas (also 35 celcius make thinking pain)
     // Start is called before the first frame update
     void Start()
     {
-        float size = Random.Range(50, 200);
+        playerScript = FindAnyObjectByType<PlayerScript>();
+        size = Random.Range(50, 200);
         health = size;
         transform.localScale = new Vector3(size / 2, size / 2, size / 2);
         gameObject.GetComponent<Rigidbody>().mass = health;
@@ -30,7 +34,26 @@ public class BreakableScript : MonoBehaviour
 
     private void NotSoMentalBreakDown()
     {
-        Debug.Log("Explosion SFX");
+        playerScript.score += Mathf.RoundToInt(size);
         Destroy(gameObject);
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        PlayerScript player = collision.gameObject.GetComponent<PlayerScript>();
+        if (player != null)
+        {
+            player.Damage(Mathf.RoundToInt(Mathf.Abs(((collision.transform.forward * player.speed) - gameObject.GetComponent<Rigidbody>().velocity).magnitude) * 6.25F), 1.40F, 0.70F);
+            playerScript.rocked = true;
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        PlayerScript player = collision.gameObject.GetComponent<PlayerScript>();
+        if (player != null && playerScript.alive)
+        {
+            playerScript.rocked = false;
+        }
     }
 }

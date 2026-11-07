@@ -53,13 +53,11 @@ public class Projectile : MonoBehaviour
                         if (collision.gameObject.GetComponent<EnemyShipScript>() == null)
                         {
                             collision.gameObject.GetComponent<EnemyScript>().Damage(damage, hullmul, shieldyield);
-                            Debug.Log(collision.gameObject.GetComponent<EnemyScript>().hull + collision.gameObject.GetComponent<EnemyScript>().shield);
                             Destroy(gameObject);
                         }
                         else
                         {
                             collision.gameObject.GetComponent<EnemyShipScript>().Damage(damage, hullmul, shieldyield);
-                            Debug.Log(collision.gameObject.GetComponent<EnemyShipScript>().hull + collision.gameObject.GetComponent<EnemyShipScript>().shield);
                             Destroy(gameObject);
                         }
                     }

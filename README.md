@@ -17,6 +17,7 @@ New Hackclub event = new project cause why not.
 <ul>
   <li>The turrets on the side of the ship don't accurately point to the target. This does seem to be purely a visual issue though and so is low priority</li>
   <li>Object rendering looks weird near the edge of the view distance. I don't write the rendering code so I don't know how to fix this</li>
+  <li>Enemy Health Bars Dissapear when the enemy is far away. Only really a bug because I didn't do it intentionaly
 </ul>
 <h2>Credits</h2>
 <ul>

@@ -7,6 +7,7 @@ public class WorldGen : MonoBehaviour
     public GameObject rockAsset;
     public GameObject fighterAsset;
     public GameObject shipAsset;
+    private int oldPilots = 3;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,7 +17,26 @@ public class WorldGen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (GameObject.FindGameObjectsWithTag("isPilot").Length < oldPilots)
+        {
+            // Fighter
+            transform.localEulerAngles = new Vector3(Random.Range(-180, 180), Random.Range(-180, 180), Random.Range(-180, 180));
+            transform.position = new Vector3(0, 0, 0);
+            transform.Translate(new Vector3(0, 0, 625));
+            //rand dir
+            transform.localEulerAngles = new Vector3(Random.Range(-180, 180), Random.Range(-180, 180), Random.Range(-180, 180));
+            //spawn
+            Instantiate(fighterAsset, transform.position, transform.rotation);
+            // Ship
+            transform.localEulerAngles = new Vector3(Random.Range(-180, 180), Random.Range(-180, 180), Random.Range(-180, 180));
+            transform.position = new Vector3(0, 0, 0);
+            transform.Translate(new Vector3(0, 0, 625));
+            //rand dir
+            transform.localEulerAngles = new Vector3(Random.Range(-180, 180), Random.Range(-180, 180), Random.Range(-180, 180));
+            //spawn
+            Instantiate(shipAsset, transform.position, transform.rotation);
+        }
+        oldPilots = GameObject.FindGameObjectsWithTag("isPilot").Length;
     }
 
     public void GenerateWorld()

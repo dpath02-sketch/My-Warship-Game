@@ -8,14 +8,14 @@ using UnityEngine.UI;
 public class EnemyScript : MonoBehaviour
 {
     public float speed = 0;
-    public float baseSpeed = 50;
+    public float baseSpeed = 100;
     public float accel = 46;
     public float agil = 112F;
-    public int baseHull = 100;
-    public int baseShield = 100;
-    public float hull = 100;
-    public float shield = 100;
-    public float shieldRgn = 1;
+    public int baseHull = 200; //Base
+    public int baseShield = 200;
+    public float hull = 200;
+    public float shield = 200;
+    public float shieldRgn = 2;
     public GameObject tBS;
     private float armour = 0;
     private float deflection = 0;
@@ -39,7 +39,7 @@ public class EnemyScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerScript = GameObject.FindGameObjectWithTag("isPilot").GetComponent<PlayerScript>();
+        playerScript = FindAnyObjectByType<PlayerScript>();
         canvas = FindAnyObjectByType<Canvas>();
         shieldInstance = Instantiate(shieldSlider, canvas.GetComponentInParent<RectTransform>());
         hullInstance = Instantiate(hullSlider, canvas.GetComponent<RectTransform>());
@@ -84,9 +84,9 @@ public class EnemyScript : MonoBehaviour
         if (Camera.main.WorldToScreenPoint(transform.position).z >= 0)
         {
             shieldInstance.transform.position = Camera.main.WorldToScreenPoint(transform.position);
-            shieldInstance.transform.position += new Vector3(0, -200 / shieldInstance.transform.position.z, 0);
+            shieldInstance.transform.position += new Vector3(0, -3840 / shieldInstance.transform.position.z, 0);
             hullInstance.transform.position = Camera.main.WorldToScreenPoint(transform.position);
-            hullInstance.transform.position += new Vector3(0, -200 / hullInstance.transform.position.z -10, 0);
+            hullInstance.transform.position += new Vector3(0, -3840 / hullInstance.transform.position.z -10, 0);
             shieldInstance.value = shield;
             hullInstance.value = hull;
         }
@@ -217,6 +217,12 @@ public class EnemyScript : MonoBehaviour
             if (hull <= 0)
             {
                 //TODO propper death
+                playerScript.score += Mathf.RoundToInt((baseHull + baseShield) * 18 / fireRate);
+                /*
+                Power Calculation:
+                Health and Damage aid eachother. No health is useless, no damage is useless, having both is good.
+                Speed aids in surviving but not damage. Also no speed isn't useless except if the enemy runs. Makes speed hard to put into the equasion, so I didn't
+                */
                 Destroy(gameObject);
             }
         }
@@ -229,13 +235,13 @@ public class EnemyScript : MonoBehaviour
         {
             bigShot = Instantiate(tBS, transform.position + transform.right * 2.15F + transform.forward * 1.62648F, transform.rotation);
             // Realism factor is how much conservation of momentum affects things
-            bigShot.GetComponent<Projectile>().OnSummon(transform.forward * 200 + transform.forward * speed * realismFactor, 5000 / 200, 18, 1, 1, true);
+            bigShot.GetComponent<Projectile>().OnSummon(transform.forward * 200 + transform.forward * speed * realismFactor, 3600 / 200, 18, 1, 1, true);
         }
         else
         {
             bigShot = Instantiate(tBS, transform.position + transform.right * -2.15F + transform.forward * 1.62648F, transform.rotation);
             // Realism factor is how much conservation of momentum affects things
-            bigShot.GetComponent<Projectile>().OnSummon(transform.forward * 200 + transform.forward * speed * realismFactor, 5000 / 200, 18, 1, 1, true);
+            bigShot.GetComponent<Projectile>().OnSummon(transform.forward * 200 + transform.forward * speed * realismFactor, 3600 / 200, 18, 1, 1, true);
         }
     }
 }

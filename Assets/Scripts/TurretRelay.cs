@@ -6,7 +6,7 @@ using UnityEngine;
 public class TurretRelay : MonoBehaviour
 {
     public GameObject barrel;
-    public Transform ship;
+    public GameObject ship;
     public int dir; //0 = up, 1 = right, 2 = left, 3 = down //TODO likely gonna have to update this system for angles not included in this
     private Vector3 dirResult;
     // Start is called before the first frame update
@@ -48,19 +48,19 @@ public class TurretRelay : MonoBehaviour
     {
         if (dir == 0)
         {
-            dirResult = ship.up;
+            dirResult = ship.transform.up;
         }
         else if (dir == 1)
         {
-            dirResult = ship.right;
+            dirResult = ship.transform.right;
         }
         else if (dir == 2)
         {
-            dirResult = ship.right * -1;
+            dirResult = ship.transform.right * -1;
         }
         else if (dir == 3)
         {
-            dirResult = ship.up * -1;
+            dirResult = ship.transform.up * -1;
         }
     }
 }

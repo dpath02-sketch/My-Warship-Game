@@ -9,8 +9,8 @@ public class TurretScript : MonoBehaviour
     public GameObject tBS;
     public GameObject ship;
     //TODO not sure if I should bother publicing cause unity serialisation
-    public float fireRate = 0.5F; // 60 / RPM
-    public int damage = 10;
+    public float fireRate = 1.33F; // 60 / RPM
+    public int damage = 60;
     private float coolDown = 0;
     private GameObject bigShot;
     public float realismFactor = 0; //kept as 0 FOR NOW since hitting still targets is more intuative this way. STILL KEEPING THE VARIABLE as an option though, made public for PDT reasons
@@ -39,6 +39,6 @@ public class TurretScript : MonoBehaviour
     {
         bigShot = Instantiate(tBS, transform.position, transform.rotation);
         // Realism factor is how much conservation of momentum affects things
-        bigShot.GetComponent<Projectile>().OnSummon(transform.forward * 200 + ship.transform.forward * ship.GetComponent<PlayerScript>().speed * realismFactor, 5000 / 200, damage, 1, 1, false); // Add ships speed to projectile. slightly exploitable but idc
+        bigShot.GetComponent<Projectile>().OnSummon(transform.forward * 200 + ship.transform.forward * ship.GetComponent<PlayerScript>().speed * realismFactor, 4000 / 200, damage, 1, 1, false); // Add ships speed to projectile. slightly exploitable but idc
     }
 }

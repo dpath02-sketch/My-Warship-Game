@@ -36,6 +36,8 @@ public class PlayerScript : MonoBehaviour
     public TMP_Text hullText;
     public TMP_Text shieldText;
     public TMP_Text speedText;
+    public TMP_Text deathMessage;
+    public bool alive = true;
     private float camLat = 0;
     private float camLon = 0;
     private float armour = 1.5F;
@@ -43,6 +45,10 @@ public class PlayerScript : MonoBehaviour
     private List<float> damages = new List<float>();
     private List<float> times = new List<float>();
     private float recTime = 5;
+    private float deathTimer = 0;
+    public int score = 0;
+    public bool suned = false;
+    public bool rocked = false;
     // Start is called before the first frame update
     //TODO make PDT target the fighter, reduce DPS
     void Start()
@@ -54,6 +60,7 @@ public class PlayerScript : MonoBehaviour
         closeText.color = new Color(0, 0, 0, 0);
         softClose.interactable = false;
         softCloseText.color = new Color(0, 0, 0, 0);
+        deathMessage.color = new Color(0, 0, 0, 0);
     }
 
     // Update is called once per frame
@@ -68,7 +75,7 @@ public class PlayerScript : MonoBehaviour
                 close.interactable = true;
                 closeText.color = new Color(255, 255, 255, 255);
                 softClose.interactable = true;
-            softCloseText.color = new Color(255, 255, 255, 255);
+                softCloseText.color = new Color(255, 255, 255, 255);
             }
             else
             {
@@ -79,61 +86,96 @@ public class PlayerScript : MonoBehaviour
                 softCloseText.color = new Color(0, 0, 0, 0);
             }
         }
-        //Movement:
-        CamMove(44.72F, 11.18F);
-        if (Input.GetKey(KeyCode.R))
+        if (alive)
         {
-            speed += accel * Time.deltaTime;
-            if (speed > baseSpeed)
+            //Movement:
+            CamMove(44.72F, 11.18F);
+            if (Input.GetKey(KeyCode.R))
             {
-                speed = baseSpeed;
+                speed += accel * Time.deltaTime;
+                if (speed > baseSpeed)
+                {
+                    speed = baseSpeed;
+                }
+                SpeedSlider();
             }
-            SpeedSlider();
+            if (Input.GetKey(KeyCode.F))
+            {
+                speed -= accel * Time.deltaTime;
+                if (speed < 0)
+                {
+                    speed = 0;
+                }
+                SpeedSlider();
+            }
+            if (Input.GetKey(KeyCode.W))
+            {
+                transform.Rotate(new Vector3(agil * Time.deltaTime * -1, 0, 0), Space.Self);
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                transform.Rotate(new Vector3(agil * Time.deltaTime, 0, 0), Space.Self);
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                transform.Rotate(new Vector3(0, agil * Time.deltaTime, 0), Space.Self);
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                transform.Rotate(new Vector3(0, agil * Time.deltaTime * -1, 0), Space.Self);
+            }
+            if (Input.GetKey(KeyCode.E))
+            {
+                transform.Rotate(new Vector3(0, 0, agil * Time.deltaTime * -1), Space.Self);
+            }
+            if (Input.GetKey(KeyCode.Q))
+            {
+                transform.Rotate(new Vector3(0, 0, agil * Time.deltaTime), Space.Self);
+            }
+            transform.Translate(new Vector3(0, 0, speed * Time.deltaTime), Space.Self);
+            //Health:
+            shield += shieldRgn * Time.deltaTime;
+            if (shield > baseShield)
+            {
+                shield = baseShield;
+            }
+            HealthSliders();
+            //Turrets
+            AimTurrets();
+            RenderHUDText();
         }
-        if (Input.GetKey(KeyCode.F))
+        else
         {
-            speed -= accel * Time.deltaTime;
+            Cursor.lockState = CursorLockMode.None;
+            if (suned)
+            {
+                deathMessage.text = "You where no match for the unrivaled power of the sun\nScore: " + Mathf.FloorToInt(score / 1000).ToString() + "\nReturning to menu...";
+                suned = true;
+                deathTimer += Time.deltaTime * 0.5F;
+            }
+            else if (rocked)
+            {
+                deathMessage.text = "You really though you could just keep ramming into rocks with no consequence\nScore: " + Mathf.FloorToInt(score / 1000).ToString() + "\nReturning to menu...";
+                rocked = true;
+                deathTimer += Time.deltaTime * 0.5F;
+            }
+            else
+            {
+                deathMessage.text = "You died\nScore: " + Mathf.FloorToInt(score / 1000).ToString() + "\nReturning to menu...";
+                deathTimer += Time.deltaTime;
+            }
+            deathMessage.color = new Color(255, 255, 255, 255);
+            speed -= accel * 0.5F;
             if (speed < 0)
             {
                 speed = 0;
             }
-            SpeedSlider();
+            if (deathTimer >= 2)
+            {
+                SceneManager.LoadScene("MainMenu");
+            }
+            HealthSliders();
         }
-        if (Input.GetKey(KeyCode.W))
-        {
-            transform.Rotate(new Vector3(agil * Time.deltaTime * -1, 0, 0), Space.Self);
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            transform.Rotate(new Vector3(agil * Time.deltaTime, 0, 0), Space.Self);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.Rotate(new Vector3(0, agil * Time.deltaTime, 0), Space.Self);
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.Rotate(new Vector3(0, agil * Time.deltaTime * -1, 0), Space.Self);
-        }
-        if (Input.GetKey(KeyCode.E))
-        {
-            transform.Rotate(new Vector3(0, 0, agil * Time.deltaTime * -1), Space.Self);
-        }
-        if (Input.GetKey(KeyCode.Q))
-        {
-            transform.Rotate(new Vector3(0, 0, agil * Time.deltaTime), Space.Self);
-        }
-        transform.Translate(new Vector3(0, 0, speed * Time.deltaTime), Space.Self);
-        //Health:
-        shield += shieldRgn * Time.deltaTime;
-        if (shield > baseShield)
-        {
-            shield = baseShield;
-        }
-        HealthSliders();
-        //Turrets
-        AimTurrets();
-        RenderHUDText();
     }
 
     private void CamMove(float dist, float height)
@@ -165,32 +207,42 @@ public class PlayerScript : MonoBehaviour
 
     public void Damage(int dmg, float hullx, float shieldx) //trying to recreate generic space hull shield damage. this bouta get crazy
     {
+        Debug.Log("Raw Damage: " + dmg.ToString());
         float inDmg = dmg * shieldx; // incomming damage, currently for shield
+        Debug.Log("Shield Scaled Damage: " + inDmg.ToString());
         float oldHP = hull + shield;
         if (shield / baseShield > 0.1) // if shield is low consider damaging hull
         {
-            shield -= Mathf.Ceil(inDmg - deflection); //Ceil to guarantee some damage
+            Debug.Log("Shields Currently Stable");
+            shield -= Mathf.Ceil(inDmg - deflection / shieldx); //Ceil to guarantee some damage, deflection less effective with shield damaging rounds
+            Debug.Log("Damage: " + Mathf.Ceil(inDmg - deflection / shieldx).ToString());
             if (shield < 0) //incase you take a hit from 10%+ shield to hull
             {
-                hull -= Mathf.Ceil(-1 * shield * hullx / shieldx - armour);
+                Debug.Log("Critical Hit: ");
+                hull -= Mathf.Ceil(-1 * shield * hullx / shieldx - armour / hullx);
+                Debug.Log("    " + Mathf.Ceil(-1 * shield * hullx / shieldx - armour / hullx).ToString());
                 shield = 0; // No negetive shield
             }
         }
         else // decided to damage hull
         {
-            float local = (inDmg - deflection) * shield / baseShield * 10; // realise since shield is in the calc hull's calc is affefcted by the damage taken
+            Debug.Log("Shields Critical");
+            float local = (inDmg - deflection / shieldx) * shield / baseShield * 10; // realise since shield is in the calc hull's calc is affefcted by the damage taken
             shield -= Mathf.Ceil(local); // less sheild remaining = more hull damage
+            Debug.Log("Shield Damage: " + Mathf.Ceil(local).ToString());
             if (shield < 0)
             {
                 shield = 0;
             }
             inDmg -= local; // shield absored some damge
-            inDmg = inDmg * hullx / shieldx - armour; // convert remaining shield damage for hull\
+            Debug.Log("Remaining Damage: " + inDmg.ToString());
+            inDmg = inDmg * hullx / shieldx - armour / hullx; // convert remaining shield damage for hull
             hull -= Mathf.Ceil(inDmg); // finaly taking damage to the ship itself. K.I.S.S can go K.Y.S
+            Debug.Log("Hull Damage: " + Mathf.Ceil(inDmg).ToString());
             if (hull <= 0)
             {
                 //TODO death
-                Debug.Log("Dead");
+                alive = false;
             }
         }
         RegisterHit(oldHP - (hull + shield), ref damages, ref times);
@@ -253,7 +305,7 @@ public class PlayerScript : MonoBehaviour
         DPS = DPS / recTime; //1 is the recording time
         int mins = Mathf.FloorToInt((hull + shield) / DPS / 60);
         int secs = Mathf.FloorToInt((hull + shield) / DPS - mins * 60);
-        float relAlpha = potentialAplha / (hull + shield) * 100;
+        float relAlpha = potentialAplha / (baseHull + baseShield) * 100;
         if (potentialAplha != 0)
         {
             dmgText.text = mins.ToString() + ":" + secs.ToString() + ", " + relAlpha.ToString("0.00") + "%";
