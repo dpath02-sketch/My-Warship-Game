@@ -98,8 +98,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tBS: {fileID: 9019844217597823598, guid: 4ba4fcaf4d4a20e41b27c0b63dee4972, type: 3}
   ship: {fileID: 0}
-  fireRate: 1
-  damage: 20
+  fireRate: 2.67
+  damage: 120
   realismFactor: 0
 --- !u!1 &5186593481746916041
 GameObject:

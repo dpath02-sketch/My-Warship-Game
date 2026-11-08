@@ -170,7 +170,7 @@ public class PlayerScript : MonoBehaviour
             {
                 speed = 0;
             }
-            if (deathTimer >= 2)
+            if (deathTimer >= 4)
             {
                 SceneManager.LoadScene("MainMenu");
             }

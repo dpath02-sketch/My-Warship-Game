@@ -12,8 +12,6 @@ public class LoadoutHandler : MonoBehaviour
     private Rigidbody playerRigidbody;
     private MeshFilter playerShipMesh;
     private MeshRenderer playerShipRenderer;
-    public List<GameObject> tempTurrets1;
-    public List<GameObject> tempTurrets2;
     // Start is called before the first frame update
     void Start()
     {
@@ -50,26 +48,10 @@ public class LoadoutHandler : MonoBehaviour
         // In with the new
         playerScript.turrets[turretIndex] = Instantiate(turret, playerShip.transform);
         playerScript.turrets[turretIndex].GetComponent<TurretRelay>().ship = playerShip;
-        playerScript.turrets[turretIndex].GetComponentInChildren<TurretScript>().ship = playerShip;
+        playerScript.turrets[turretIndex].GetComponentInChildren<TurretScript>().ship = FindAnyObjectByType<PlayerScript>().gameObject; //TODO VERY TEMPORARY THIS SHOULDN'T BE HERE BUT playerShip DON'T WORK
         // Lock into place
         playerScript.turrets[turretIndex].transform.position = turretPos;
         playerScript.turrets[turretIndex].transform.rotation = turretDir;
         playerScript.turrets[turretIndex].GetComponent<TurretRelay>().dir = turretRootDir;
-    }
-
-    public void TempSwitchTurret1()
-    {
-        for (int i = 0; i < tempTurrets1.Count; i += 1)
-        {
-            SwitchTurret(i, tempTurrets1[i]);
-        }
-    }
-
-    public void TempSwitchTurret2()
-    {
-        for (int i = 0; i < tempTurrets2.Count; i += 1)
-        {
-            SwitchTurret(i, tempTurrets2[i]);
-        }
     }
 }
