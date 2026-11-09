@@ -62,7 +62,7 @@ public class LoadoutHandler : MonoBehaviour
         UIHandler.PurgeDropdowns();
         for (int i = 0; i < playerScript.turrets.Count; i += 1)
         {
-            UIHandler.CreateDropdown("TODO get name list");
+            UIHandler.CreateDropdown(playerScript.turretNames[i]);
         }
     }
 }

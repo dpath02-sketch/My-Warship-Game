@@ -13648,6 +13648,15 @@ MonoBehaviour:
   - {fileID: 910028381}
   - {fileID: 550718918}
   - {fileID: 1110549659}
+  turretNames:
+  - S Top Front 1
+  - S Bottom Front 1
+  - S Left Front 1
+  - S Right Front 1
+  - P Top Back 1
+  - P Bottom Back 1
+  - P Left Back 1
+  - P Right Back 1
   close: {fileID: 782206906}
   closeText: {fileID: 1601144165}
   softClose: {fileID: 2066557303}

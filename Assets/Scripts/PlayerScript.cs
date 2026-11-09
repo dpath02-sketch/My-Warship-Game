@@ -28,6 +28,7 @@ public class PlayerScript : MonoBehaviour
     public Slider hudHull;
     public Slider hudSpeed;
     public List<GameObject> turrets;
+    public List<string> turretNames;
     public Button close;
     public TMP_Text closeText;
     public Button softClose;
