@@ -7,6 +7,7 @@ public class LoadoutHandler : MonoBehaviour
     public GameObject playerRoot;
     public GameObject playerShip;
     public List<GameObject> playerTrails;
+    public LoadoutUIHandler UIHandler;
     private PlayerScript playerScript;
     private MeshCollider playerHitBox;
     private Rigidbody playerRigidbody;
@@ -20,6 +21,7 @@ public class LoadoutHandler : MonoBehaviour
         playerRigidbody = playerRoot.GetComponent<Rigidbody>();
         playerShipMesh = playerShip.GetComponent<MeshFilter>();
         playerShipRenderer = playerShip.GetComponent<MeshRenderer>();
+        CreateUI();
     }
 
     // Update is called once per frame
@@ -53,5 +55,14 @@ public class LoadoutHandler : MonoBehaviour
         playerScript.turrets[turretIndex].transform.position = turretPos;
         playerScript.turrets[turretIndex].transform.rotation = turretDir;
         playerScript.turrets[turretIndex].GetComponent<TurretRelay>().dir = turretRootDir;
+    }
+
+    public void CreateUI()
+    {
+        UIHandler.PurgeDropdowns();
+        for (int i = 0; i < playerScript.turrets.Count; i += 1)
+        {
+            UIHandler.CreateDropdown("TODO get name list");
+        }
     }
 }
