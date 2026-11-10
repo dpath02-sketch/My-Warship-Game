@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,20 +8,23 @@ using UnityEngine.UI;
 public class LoadoutUIHandler : MonoBehaviour
 {
     // Start is called before the first frame update
-    public List<GameObject> PTurrets;
-    public List<string> PTurretNames;
-    public List<Sprite> PTurretIcons;
-    public List<GameObject> STurrets;
-    public List<string> STurretNames;
-    public List<Sprite> STurretIcons;
-    public List<GameObject> MTurrets;
-    public List<string> MTurretNames;
-    public List<Sprite> MTurretIcons;
-    public Transform ItemParent;
-    public GameObject DropdownTemplate;
-    public GameObject DropdownNameTemplate;
-    List<GameObject> Dropdowns = new List<GameObject>();
-    List<GameObject> DropdownNames = new List<GameObject>();
+    public List<GameObject> pTurrets;
+    public List<string> pTurretNames;
+    public List<Sprite> pTurretIcons;
+    public List<GameObject> sTurrets;
+    public List<string> sTurretNames;
+    public List<Sprite> sTurretIcons;
+    public List<GameObject> mTurrets;
+    public List<string> mTurretNames;
+    public List<Sprite> mTurretIcons;
+    public Transform itemParent;
+    public GameObject dropdownTemplate;
+    public GameObject dropdownNameTemplate;
+    public LoadoutHandler loadoutHandler;
+    public PlayerScript playerScript;
+    List<GameObject> dropdowns = new List<GameObject>();
+    List<GameObject> dropdownNames = new List<GameObject>();
+    List<string> dropdownSizes = new List<string>();
     void Start()
     {
         
@@ -34,44 +38,70 @@ public class LoadoutUIHandler : MonoBehaviour
 
     public void PurgeDropdowns()
     {
-        for (int i = 0; i < Dropdowns.Count; i += 1)
+        for (int i = 0; i < dropdowns.Count; i += 1)
         {
-            Destroy(Dropdowns[i]);
+            Destroy(dropdowns[i]);
         }
-        Dropdowns.Clear();
-        DropdownNames.Clear();
+        dropdowns.Clear();
+        dropdownNames.Clear();
+        dropdownSizes.Clear();
     }
 
     public void CreateDropdown(string slotText, string size) //TODO start taking in more info about the dropdown once I find out what and how
     {
-        GameObject dropdown = Instantiate(DropdownTemplate, ItemParent);
+        GameObject dropdown = Instantiate(dropdownTemplate, itemParent);
+        playerScript.escDropdowns.Add(dropdown.GetComponent<TMP_Dropdown>());
         dropdown.GetComponent<TMP_Dropdown>().ClearOptions();
         List<TMP_Dropdown.OptionData> options = new List<TMP_Dropdown.OptionData>();
         if (size == "P")
         {
-            for (int i = 0; i < PTurrets.Count; i += 1)
+            for (int i = 0; i < pTurrets.Count; i += 1)
             {
-                options.Add(new TMP_Dropdown.OptionData(PTurretNames[i], PTurretIcons[i]));
+                options.Add(new TMP_Dropdown.OptionData(pTurretNames[i], pTurretIcons[i]));
             }
         }
         else if (size == "S")
         {
-            for (int i = 0; i < STurrets.Count; i += 1)
+            for (int i = 0; i < sTurrets.Count; i += 1)
             {
-                options.Add(new TMP_Dropdown.OptionData(STurretNames[i], STurretIcons[i]));
+                options.Add(new TMP_Dropdown.OptionData(sTurretNames[i], sTurretIcons[i]));
             }
         }
         else if (size == "M")
         {
-            for (int i = 0; i < MTurrets.Count; i += 1)
+            for (int i = 0; i < mTurrets.Count; i += 1)
             {
-                options.Add(new TMP_Dropdown.OptionData(MTurretNames[i], MTurretIcons[i]));
+                options.Add(new TMP_Dropdown.OptionData(mTurretNames[i], mTurretIcons[i]));
             }
         }
         dropdown.GetComponent<TMP_Dropdown>().AddOptions(options);
-        Dropdowns.Add(dropdown);
-        GameObject text = Instantiate(DropdownNameTemplate, dropdown.transform);
+        dropdowns.Add(dropdown);
+        GameObject text = Instantiate(dropdownNameTemplate, dropdown.transform);
+        playerScript.escTexts.Add(text.GetComponent<TMP_Text>());
         text.GetComponent<TMP_Text>().text = slotText;
-        DropdownNames.Add(text);
+        dropdownNames.Add(text);
+        dropdownSizes.Add(size);
+    }
+
+    public void DropdownOptionSelected(Int32 item)
+    {
+        for (int i = 0; i < dropdowns.Count; i += 1)
+        {
+            if (dropdowns[i].GetComponent<TMP_Dropdown>().value == item)
+            {
+                if (dropdownSizes[i] == "P")
+                {
+                    loadoutHandler.SwitchTurret(i, pTurrets[item]);
+                }
+                else if (dropdownSizes[i] == "S")
+                {
+                    loadoutHandler.SwitchTurret(i, sTurrets[item]);
+                }
+                else if (dropdownSizes[i] == "M")
+                {
+                    loadoutHandler.SwitchTurret(i, mTurrets[item]);
+                }
+            }
+        }
     }
 }

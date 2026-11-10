@@ -9,7 +9,7 @@ using Unity.VisualScripting.FullSerializer;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -24,21 +24,21 @@ public class PlayerScript : MonoBehaviour
     public float hull = 2750;
     public float shield = 2750;
     public float shieldRgn = 10.5F;
-    public Slider hudShield;
-    public Slider hudHull;
-    public Slider hudSpeed;
+    public UnityEngine.UI.Slider hudShield;
+    public UnityEngine.UI.Slider hudHull;
+    public UnityEngine.UI.Slider hudSpeed;
     public List<GameObject> turrets;
     public List<string> turretNames;
     public List<string> turretSizes;
-    public Button close;
-    public TMP_Text closeText;
-    public Button softClose;
-    public TMP_Text softCloseText;
     public TMP_Text dmgText;
     public TMP_Text hullText;
     public TMP_Text shieldText;
     public TMP_Text speedText;
     public TMP_Text deathMessage;
+    public List<UnityEngine.UI.Button> escButtons;
+    public List<TMP_Text> escTexts;
+    public List<UnityEngine.UI.ScrollRect> escScrollViews;
+    public List<TMP_Dropdown> escDropdowns;
     public bool alive = true;
     private float camLat = 0;
     private float camLon = 0;
@@ -55,14 +55,11 @@ public class PlayerScript : MonoBehaviour
     //TODO make PDT target the fighter, reduce DPS
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         HealthSliders();
         SpeedSlider();
-        close.interactable = false;
-        closeText.color = new Color(0, 0, 0, 0);
-        softClose.interactable = false;
-        softCloseText.color = new Color(0, 0, 0, 0);
-        deathMessage.color = new Color(0, 0, 0, 0);
+        deathMessage.text = "";
+        HideEscMenu();
     }
 
     // Update is called once per frame
@@ -71,21 +68,17 @@ public class PlayerScript : MonoBehaviour
         //Mouse Lock
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            if (Cursor.lockState == CursorLockMode.Locked)
+            if (UnityEngine.Cursor.lockState == CursorLockMode.Locked)
             {
-                Cursor.lockState = CursorLockMode.None;
-                close.interactable = true;
-                closeText.color = new Color(255, 255, 255, 255);
-                softClose.interactable = true;
-                softCloseText.color = new Color(255, 255, 255, 255);
+                UnityEngine.Cursor.lockState = CursorLockMode.None;
+                ShowEscMenu();
+
             }
             else
             {
-                Cursor.lockState = CursorLockMode.Locked;
-                close.interactable = false;
-                closeText.color = new Color(0, 0, 0, 0);
-                softClose.interactable = false;
-                softCloseText.color = new Color(0, 0, 0, 0);
+                UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+                HideEscMenu();
+
             }
         }
         if (alive)
@@ -148,7 +141,7 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            Cursor.lockState = CursorLockMode.None;
+            UnityEngine.Cursor.lockState = CursorLockMode.None;
             if (suned)
             {
                 deathMessage.text = "You where no match for the unrivaled power of the sun\nScore: " + Mathf.FloorToInt(score / 1000).ToString() + "\nReturning to menu...";
@@ -319,6 +312,46 @@ public class PlayerScript : MonoBehaviour
         hullText.text = Mathf.FloorToInt(hull / baseHull * 100).ToString("0") + "%";
         shieldText.text = Mathf.FloorToInt(shield / baseShield * 100).ToString("0") + "%";
         speedText.text = speed.ToString("0") + "/" + baseSpeed.ToString("0");
+    }
+
+    public void HideEscMenu()
+    {
+        for (int i = 0; i < escButtons.Count; i += 1)
+        {
+            escButtons[i].interactable = false;
+        }
+        for (int i = 0; i < escScrollViews.Count; i += 1)
+        {
+            escScrollViews[i].enabled = false;
+        }
+        for (int i = 0; i < escTexts.Count; i += 1)
+        {
+            escTexts[i].alpha = 0;
+        }
+        for (int i = 0; i < escDropdowns.Count; i += 1)
+        {
+            escDropdowns[i].interactable = false;
+        }
+    }
+
+    public void ShowEscMenu()
+    {
+        for (int i = 0; i < escButtons.Count; i += 1)
+        {
+            escButtons[i].interactable = true;
+        }
+        for (int i = 0; i < escScrollViews.Count; i += 1)
+        {
+            escScrollViews[i].enabled = true;
+        }
+        for (int i = 0; i < escTexts.Count; i += 1)
+        {
+            escTexts[i].alpha = 255;
+        }
+        for (int i = 0; i < escDropdowns.Count; i += 1)
+        {
+            escDropdowns[i].interactable = true;
+        }
     }
 
     private void CleanRegistry()
