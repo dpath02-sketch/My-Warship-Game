@@ -40,6 +40,7 @@ public class PlayerScript : MonoBehaviour
     public List<UnityEngine.UI.ScrollRect> escScrollViews;
     public List<TMP_Dropdown> escDropdowns;
     public List<UnityEngine.UI.Image> escImages;
+    public List<UnityEngine.UI.Scrollbar> escScrollbars;
     public bool alive = true;
     private float camLat = 0;
     private float camLon = 0;
@@ -337,6 +338,10 @@ public class PlayerScript : MonoBehaviour
         {
             escImages[i].color = new Color(escImages[i].color.r, escImages[i].color.g, escImages[i].color.b, 0);
         }
+        for (int i = 0; i < escScrollbars.Count; i += 1)
+        {
+            escScrollbars[i].interactable = false;
+        }
     }
 
     public void ShowEscMenu()
@@ -360,6 +365,10 @@ public class PlayerScript : MonoBehaviour
         for (int i = 0; i < escImages.Count; i += 1)
         {
             escImages[i].color = new Color(escImages[i].color.r, escImages[i].color.g, escImages[i].color.b, 255);
+        }
+        for (int i = 0; i < escScrollbars.Count; i += 1)
+        {
+            escScrollbars[i].interactable = true;
         }
     }
 

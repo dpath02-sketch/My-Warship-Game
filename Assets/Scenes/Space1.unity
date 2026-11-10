@@ -11757,27 +11757,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8c684ae2e01375488c96a088fd205da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PTurrets:
+  pTurrets:
   - {fileID: 5444572246673131360, guid: af382cbadc1865c42ac3ed5b10dd1200, type: 3}
-  PTurretNames:
+  - {fileID: 5444572246673131360, guid: 88edab2a6e9eda940b2b2468cfa6922b, type: 3}
+  pTurretNames:
   - Temp Repeater
-  PTurretIcons:
+  - Temp P Heavy
+  pTurretIcons:
   - {fileID: 21300000, guid: ae54c95cf649b294f924e519e67fe25b, type: 3}
-  STurrets:
-  - {fileID: 5186593481746916041, guid: 634fd8ae7c775fd48ab9a7760f06fca7, type: 3}
+  - {fileID: 21300000, guid: ae54c95cf649b294f924e519e67fe25b, type: 3}
+  sTurrets:
   - {fileID: 4480135085962510656, guid: f43c242b31015254cb1ae452b2b39807, type: 3}
-  STurretNames:
+  - {fileID: 5186593481746916041, guid: 634fd8ae7c775fd48ab9a7760f06fca7, type: 3}
+  sTurretNames:
   - Temp S Cannon
   - Temp S Heavy
-  STurretIcons:
+  sTurretIcons:
   - {fileID: 21300000, guid: ae54c95cf649b294f924e519e67fe25b, type: 3}
   - {fileID: 21300000, guid: ae54c95cf649b294f924e519e67fe25b, type: 3}
-  MTurrets: []
-  MTurretNames: []
-  MTurretIcons: []
-  ItemParent: {fileID: 1393745714}
-  DropdownTemplate: {fileID: 4225656625013116106, guid: 1dc4fea57f66cf443b38800d460dad68, type: 3}
-  DropdownNameTemplate: {fileID: 7142171157569096036, guid: 543400f7f8eb68f4c88ae6658a858a65, type: 3}
+  mTurrets: []
+  mTurretNames: []
+  mTurretIcons: []
+  itemParent: {fileID: 1393745714}
+  dropdownTemplate: {fileID: 4225656625013116106, guid: 1dc4fea57f66cf443b38800d460dad68, type: 3}
+  dropdownNameTemplate: {fileID: 7142171157569096036, guid: 543400f7f8eb68f4c88ae6658a858a65, type: 3}
+  loadoutHandler: {fileID: 62127366}
+  playerScript: {fileID: 1567207341}
 --- !u!4 &867871459
 Transform:
   m_ObjectHideFlags: 0
@@ -12304,7 +12309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3882353}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -12768,7 +12773,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -13685,15 +13690,27 @@ MonoBehaviour:
   - P
   - P
   - P
-  close: {fileID: 782206906}
-  closeText: {fileID: 1601144165}
-  softClose: {fileID: 2066557303}
-  softCloseText: {fileID: 1993316590}
   dmgText: {fileID: 2130385435}
   hullText: {fileID: 1842512448}
   shieldText: {fileID: 584527021}
   speedText: {fileID: 877270401}
   deathMessage: {fileID: 53453389}
+  escButtons:
+  - {fileID: 782206906}
+  - {fileID: 2066557303}
+  escTexts:
+  - {fileID: 1601144165}
+  - {fileID: 1993316590}
+  escScrollViews:
+  - {fileID: 964813439}
+  escDropdowns: []
+  escImages:
+  - {fileID: 1556860687}
+  - {fileID: 1132048947}
+  - {fileID: 964813440}
+  - {fileID: 1200782442}
+  escScrollbars:
+  - {fileID: 1200782441}
   alive: 1
   score: 0
   suned: 0
