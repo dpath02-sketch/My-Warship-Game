@@ -51,6 +51,8 @@ public class LoadoutUIHandler : MonoBehaviour
     {
         GameObject dropdown = Instantiate(dropdownTemplate, itemParent);
         playerScript.escDropdowns.Add(dropdown.GetComponent<TMP_Dropdown>());
+        playerScript.escImages.Add(dropdown.GetComponent<TMP_Dropdown>().captionImage);
+        playerScript.escTexts.Add(dropdown.GetComponent<TMP_Dropdown>().captionText);
         dropdown.GetComponent<TMP_Dropdown>().ClearOptions();
         List<TMP_Dropdown.OptionData> options = new List<TMP_Dropdown.OptionData>();
         if (size == "P")
@@ -83,7 +85,7 @@ public class LoadoutUIHandler : MonoBehaviour
         dropdownSizes.Add(size);
     }
 
-    public void DropdownOptionSelected(Int32 item)
+    public void DropdownOptionSelected(Int32 item) //TODO don't think it work
     {
         for (int i = 0; i < dropdowns.Count; i += 1)
         {
