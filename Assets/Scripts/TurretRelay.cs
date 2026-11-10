@@ -8,6 +8,7 @@ public class TurretRelay : MonoBehaviour
     public GameObject barrel;
     public GameObject ship;
     public int dir; //0 = up, 1 = right, 2 = left, 3 = down //TODO likely gonna have to update this system for angles not included in this
+    public int type = 0; //TODO list of turret types
     private Vector3 dirResult;
     // Start is called before the first frame update
     void Start()

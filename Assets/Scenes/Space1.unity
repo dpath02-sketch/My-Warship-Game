@@ -712,6 +712,7 @@ MonoBehaviour:
   barrel: {fileID: 666200885}
   ship: {fileID: 4972481007032927413}
   dir: 0
+  type: 0
 --- !u!23 &186488850
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -812,6 +813,7 @@ MonoBehaviour:
   barrel: {fileID: 176594697}
   ship: {fileID: 4972481007032927413}
   dir: 2
+  type: 0
 --- !u!23 &187429230
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -987,6 +989,7 @@ MonoBehaviour:
   barrel: {fileID: 713991075}
   ship: {fileID: 4972481007032927413}
   dir: 0
+  type: 0
 --- !u!23 &277444172
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1087,6 +1090,7 @@ MonoBehaviour:
   barrel: {fileID: 1347001549}
   ship: {fileID: 4972481007032927413}
   dir: 2
+  type: 0
 --- !u!23 &550718921
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11755,13 +11759,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PTurrets:
   - {fileID: 5444572246673131360, guid: af382cbadc1865c42ac3ed5b10dd1200, type: 3}
+  PTurretNames:
+  - Temp Repeater
+  PTurretIcons:
+  - {fileID: 21300000, guid: ae54c95cf649b294f924e519e67fe25b, type: 3}
   STurrets:
   - {fileID: 5186593481746916041, guid: 634fd8ae7c775fd48ab9a7760f06fca7, type: 3}
   - {fileID: 4480135085962510656, guid: f43c242b31015254cb1ae452b2b39807, type: 3}
+  STurretNames:
+  - Temp S Cannon
+  - Temp S Heavy
+  STurretIcons:
+  - {fileID: 21300000, guid: ae54c95cf649b294f924e519e67fe25b, type: 3}
+  - {fileID: 21300000, guid: ae54c95cf649b294f924e519e67fe25b, type: 3}
   MTurrets: []
+  MTurretNames: []
+  MTurretIcons: []
   ItemParent: {fileID: 1393745714}
-  DropdownTemplate: {fileID: 8106741149381610261, guid: 1dc4fea57f66cf443b38800d460dad68, type: 3}
-  DropdownNameTemplate: {fileID: 2696383783631129615, guid: 97bac50360c6d0449b4a7df79f97ee23, type: 3}
+  DropdownTemplate: {fileID: 4225656625013116106, guid: 1dc4fea57f66cf443b38800d460dad68, type: 3}
+  DropdownNameTemplate: {fileID: 7142171157569096036, guid: 543400f7f8eb68f4c88ae6658a858a65, type: 3}
 --- !u!4 &867871459
 Transform:
   m_ObjectHideFlags: 0
@@ -11961,6 +11977,7 @@ MonoBehaviour:
   barrel: {fileID: 1318918684}
   ship: {fileID: 4972481007032927413}
   dir: 3
+  type: 0
 --- !u!23 &904616403
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -12061,6 +12078,7 @@ MonoBehaviour:
   barrel: {fileID: 2045216902}
   ship: {fileID: 4972481007032927413}
   dir: 3
+  type: 0
 --- !u!23 &910028384
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -12476,6 +12494,7 @@ MonoBehaviour:
   barrel: {fileID: 160046326}
   ship: {fileID: 4972481007032927413}
   dir: 1
+  type: 0
 --- !u!23 &1110549662
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -13657,6 +13676,15 @@ MonoBehaviour:
   - P Bottom Back 1
   - P Left Back 1
   - P Right Back 1
+  turretSizes:
+  - S
+  - S
+  - S
+  - S
+  - P
+  - P
+  - P
+  - P
   close: {fileID: 782206906}
   closeText: {fileID: 1601144165}
   softClose: {fileID: 2066557303}
@@ -14859,6 +14887,7 @@ MonoBehaviour:
   barrel: {fileID: 1335780282}
   ship: {fileID: 4972481007032927413}
   dir: 1
+  type: 0
 --- !u!23 &2108111578
 MeshRenderer:
   m_ObjectHideFlags: 0
