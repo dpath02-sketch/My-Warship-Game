@@ -98,7 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tBS: {fileID: 9019844217597823598, guid: 4ba4fcaf4d4a20e41b27c0b63dee4972, type: 3}
   ship: {fileID: 0}
-  fireRate: 2.67
+  fireRate: 0.2
   damage: 5
   realismFactor: 0
 --- !u!1 &5444572246673131360

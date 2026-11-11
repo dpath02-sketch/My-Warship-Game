@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class LoadoutUIHandler : MonoBehaviour
@@ -53,6 +54,7 @@ public class LoadoutUIHandler : MonoBehaviour
         playerScript.escDropdowns.Add(dropdown.GetComponent<TMP_Dropdown>());
         playerScript.escImages.Add(dropdown.GetComponent<TMP_Dropdown>().captionImage);
         playerScript.escTexts.Add(dropdown.GetComponent<TMP_Dropdown>().captionText);
+        dropdown.GetComponent<TMP_Dropdown>().onValueChanged.AddListener(DropdownOptionSelected);
         dropdown.GetComponent<TMP_Dropdown>().ClearOptions();
         List<TMP_Dropdown.OptionData> options = new List<TMP_Dropdown.OptionData>();
         if (size == "P")
@@ -87,6 +89,7 @@ public class LoadoutUIHandler : MonoBehaviour
 
     public void DropdownOptionSelected(Int32 item) //TODO don't think it work
     {
+        Debug.Log("Dropdown Option Selected");
         for (int i = 0; i < dropdowns.Count; i += 1)
         {
             if (dropdowns[i].GetComponent<TMP_Dropdown>().value == item)
