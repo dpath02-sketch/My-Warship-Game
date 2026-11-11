@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class BreakableScript : MonoBehaviour
 {
+    public AudioSource hitSound;
     float health; //TODO gotta somehow make this at least semi-data-driven
     float size;
     private PlayerScript playerScript; //TODO only here for score counter, which is honestly kinda temporary but I'm outta ideas (also 35 celcius make thinking pain)

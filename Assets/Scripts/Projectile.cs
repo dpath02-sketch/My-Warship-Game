@@ -53,11 +53,19 @@ public class Projectile : MonoBehaviour
                         if (collision.gameObject.GetComponent<EnemyShipScript>() == null)
                         {
                             collision.gameObject.GetComponent<EnemyScript>().Damage(damage, hullmul, shieldyield);
+                            if (collision.gameObject.GetComponent<EnemyScript>().hitSound != null)
+                            {
+                                collision.gameObject.GetComponent<EnemyScript>().hitSound.Play();
+                            }
                             Destroy(gameObject);
                         }
                         else
                         {
                             collision.gameObject.GetComponent<EnemyShipScript>().Damage(damage, hullmul, shieldyield);
+                            if (collision.gameObject.GetComponent<EnemyShipScript>().hitSound != null)
+                            {
+                                collision.gameObject.GetComponent<EnemyShipScript>().hitSound.Play();
+                            }
                             Destroy(gameObject);
                         }
                     }
@@ -69,6 +77,10 @@ public class Projectile : MonoBehaviour
                 if (targetP)
                 {
                     collision.gameObject.GetComponent<PlayerScript>().Damage(damage, hullmul, shieldyield);
+                    if (collision.gameObject.GetComponent<PlayerScript>().hitSound != null)
+                    {
+                        collision.gameObject.GetComponent<PlayerScript>().hitSound.Play();
+                    }
                     Destroy(gameObject);
                 }
                 else
@@ -98,6 +110,10 @@ public class Projectile : MonoBehaviour
             {
                 // Target is a breakable
                 collision.gameObject.GetComponent<BreakableScript>().Damage(damage, hullmul, shieldyield);
+                if (collision.gameObject.GetComponent<BreakableScript>().hitSound != null)
+                {
+                    collision.gameObject.GetComponent<BreakableScript>().hitSound.Play();
+                }
                 Destroy(gameObject);
             }
         }

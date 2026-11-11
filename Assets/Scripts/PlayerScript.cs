@@ -42,6 +42,9 @@ public class PlayerScript : MonoBehaviour
     public List<UnityEngine.UI.Image> escImages;
     public List<UnityEngine.UI.Scrollbar> escScrollbars;
     public bool alive = true;
+    public AudioSource hitSound;
+    public AudioClip shieldSound;
+    public AudioClip hullSound;
     private float camLat = 0;
     private float camLon = 0;
     private float armour = 1.5F;

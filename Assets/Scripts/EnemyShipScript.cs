@@ -16,6 +16,10 @@ public class EnemyShipScript : MonoBehaviour
     public float shield = 1375;
     public float shieldRgn = 5.3F;
     public GameObject tBS;
+    public AudioSource fireSound;
+    public AudioSource hitSound;
+    public AudioClip shieldSound;
+    public AudioClip hullSound;
     private float armour = 0.75F;
     private float deflection = 0.75F;
     private GameObject bigShot;
@@ -231,5 +235,12 @@ public class EnemyShipScript : MonoBehaviour
         bigShot = Instantiate(tBS, transform.position + transform.forward * -5.99251F + transform.up * -1.61515F, transform.rotation);
         // Realism factor is how much conservation of momentum affects things
         bigShot.GetComponent<Projectile>().OnSummon(targetDir * 200 + transform.forward * speed * realismFactor, 4000 / 200, 30, 1, 1, true);
+        if (fireSound != null)
+        {
+            fireSound.Play();
+            fireSound.Play();
+            fireSound.Play();
+            fireSound.Play();
+        }
     }
 }
