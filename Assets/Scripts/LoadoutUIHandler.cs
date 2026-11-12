@@ -18,6 +18,11 @@ public class LoadoutUIHandler : MonoBehaviour
     public List<GameObject> mTurrets;
     public List<string> mTurretNames;
     public List<Sprite> mTurretIcons;
+    public List<ShipStatBlock> stats;
+    public List<Mesh> hitBoxes;
+    public List<Mesh> mesh;
+    public List<MaterialWrapper> meshMaterials;
+    public List<Vector3Wrapper> trails;
     public Transform itemParent;
     public GameObject dropdownTemplate;
     public GameObject dropdownNameTemplate;
@@ -89,7 +94,6 @@ public class LoadoutUIHandler : MonoBehaviour
 
     public void DropdownOptionSelected(Int32 item) //TODO don't think it work
     {
-        Debug.Log("Dropdown Option Selected");
         for (int i = 0; i < dropdowns.Count; i += 1)
         {
             if (dropdowns[i].GetComponent<TMP_Dropdown>().value == item)

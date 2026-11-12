@@ -12170,6 +12170,31 @@ MonoBehaviour:
   mTurrets: []
   mTurretNames: []
   mTurretIcons: []
+  stats:
+  - {fileID: 8204426350637185582, guid: 9c5c0bf1f0bb58d4380383beb95698a8, type: 3}
+  - {fileID: 181353857544559890, guid: 316a4b7d7e4aba545a7ec299b92d822b, type: 3}
+  hitBoxes:
+  - {fileID: 603530014252821547, guid: 2bc49abf514397249be716b77b79029d, type: 3}
+  - {fileID: 7943979438815560203, guid: 2bc49abf514397249be716b77b79029d, type: 3}
+  mesh:
+  - {fileID: -3555975389013549174, guid: 2bc49abf514397249be716b77b79029d, type: 3}
+  - {fileID: 483736894527945613, guid: 2bc49abf514397249be716b77b79029d, type: 3}
+  meshMaterials:
+  - myList:
+    - {fileID: 4734868862669877581, guid: 2bc49abf514397249be716b77b79029d, type: 3}
+    - {fileID: 1930537008950295482, guid: 2bc49abf514397249be716b77b79029d, type: 3}
+    - {fileID: 1399217181045725049, guid: 2bc49abf514397249be716b77b79029d, type: 3}
+    - {fileID: 5506428115389609390, guid: 2bc49abf514397249be716b77b79029d, type: 3}
+  - myList:
+    - {fileID: 4734868862669877581, guid: 2bc49abf514397249be716b77b79029d, type: 3}
+    - {fileID: 1930537008950295482, guid: 2bc49abf514397249be716b77b79029d, type: 3}
+    - {fileID: 1399217181045725049, guid: 2bc49abf514397249be716b77b79029d, type: 3}
+    - {fileID: 5506428115389609390, guid: 2bc49abf514397249be716b77b79029d, type: 3}
+  trails:
+  - myList:
+    - {x: 0, y: 0, z: 0}
+  - myList:
+    - {x: 0, y: 0, z: 0}
   itemParent: {fileID: 1393745714}
   dropdownTemplate: {fileID: 4225656625013116106, guid: 1dc4fea57f66cf443b38800d460dad68, type: 3}
   dropdownNameTemplate: {fileID: 7142171157569096036, guid: 543400f7f8eb68f4c88ae6658a858a65, type: 3}

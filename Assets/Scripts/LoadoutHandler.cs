@@ -41,7 +41,6 @@ public class LoadoutHandler : MonoBehaviour
 
     public void SwitchTurret(int turretIndex, GameObject turret)
     {
-        Debug.Log("Switch Turret");
         // Record old turret position
         Vector3 turretPos = playerScript.turrets[turretIndex].transform.position;
         Quaternion turretDir = playerScript.turrets[turretIndex].transform.rotation;
@@ -56,6 +55,11 @@ public class LoadoutHandler : MonoBehaviour
         playerScript.turrets[turretIndex].transform.position = turretPos;
         playerScript.turrets[turretIndex].transform.rotation = turretDir;
         playerScript.turrets[turretIndex].GetComponent<TurretRelay>().dir = turretRootDir;
+    }
+
+    public void SwitchShip(ShipStatBlock stats, Mesh hitBox, Mesh mesh, List<Material> materials, List<Vector3> trailPositions)
+    {
+        
     }
 
     public void CreateUI()
