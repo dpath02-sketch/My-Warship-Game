@@ -185,6 +185,7 @@ public class EnemyScript : MonoBehaviour
 
     public void Damage(int dmg, float hullx, float shieldx) // It's official the damage script is universal
     {
+        hitSound.clip = shieldSound;
         float inDmg = dmg * shieldx; // incomming damage, currently for shield
         //UI stuff
         if (null != damageTextInstance)
@@ -203,12 +204,14 @@ public class EnemyScript : MonoBehaviour
             shield -= Mathf.Ceil(inDmg - deflection); //Ceil to guarantee some damage
             if (shield < 0) //incase you take a hit from 10%+ shield to hull
             {
+                hitSound.clip = hullSound;
                 hull -= Mathf.Ceil(-1 * shield * hullx / shieldx - armour);
                 shield = 0; // No negetive shield
             }
         }
         else // decided to damage hull
         {
+            hitSound.clip = hullSound;
             float local = (inDmg - deflection) * shield / baseShield * 10; // realise since shield is in the calc hull's calc is affefcted by the damage taken
             shield -= Mathf.Ceil(local); // less sheild remaining = more hull damage
             if (shield < 0)
@@ -231,6 +234,7 @@ public class EnemyScript : MonoBehaviour
             }
         }
         damageTextInstance.text = Mathf.RoundToInt(temp - shield - hull).ToString();
+        hitSound.Play();
     }
 
     void Fire(bool right)

@@ -207,6 +207,7 @@ public class PlayerScript : MonoBehaviour
 
     public void Damage(int dmg, float hullx, float shieldx) //trying to recreate generic space hull shield damage. this bouta get crazy
     {
+        hitSound.clip = shieldSound;
         Debug.Log("Raw Damage: " + dmg.ToString());
         float inDmg = dmg * shieldx; // incomming damage, currently for shield
         Debug.Log("Shield Scaled Damage: " + inDmg.ToString());
@@ -218,6 +219,7 @@ public class PlayerScript : MonoBehaviour
             Debug.Log("Damage: " + Mathf.Ceil(inDmg - deflection / shieldx).ToString());
             if (shield < 0) //incase you take a hit from 10%+ shield to hull
             {
+                hitSound.clip = hullSound;
                 Debug.Log("Critical Hit: ");
                 hull -= Mathf.Ceil(-1 * shield * hullx / shieldx - armour / hullx);
                 Debug.Log("    " + Mathf.Ceil(-1 * shield * hullx / shieldx - armour / hullx).ToString());
@@ -226,6 +228,7 @@ public class PlayerScript : MonoBehaviour
         }
         else // decided to damage hull
         {
+            hitSound.clip = hullSound;
             Debug.Log("Shields Critical");
             float local = (inDmg - deflection / shieldx) * shield / baseShield * 10; // realise since shield is in the calc hull's calc is affefcted by the damage taken
             shield -= Mathf.Ceil(local); // less sheild remaining = more hull damage
@@ -246,6 +249,7 @@ public class PlayerScript : MonoBehaviour
             }
         }
         RegisterHit(oldHP - (hull + shield), ref damages, ref times);
+        hitSound.Play();
     }
 
     public void HealthSliders()

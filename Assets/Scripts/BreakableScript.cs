@@ -31,6 +31,7 @@ public class BreakableScript : MonoBehaviour
         {
             NotSoMentalBreakDown();
         }
+        hitSound.Play();
     }
 
     private void NotSoMentalBreakDown()

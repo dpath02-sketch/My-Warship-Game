@@ -110,10 +110,6 @@ public class Projectile : MonoBehaviour
             {
                 // Target is a breakable
                 collision.gameObject.GetComponent<BreakableScript>().Damage(damage, hullmul, shieldyield);
-                if (collision.gameObject.GetComponent<BreakableScript>().hitSound != null)
-                {
-                    collision.gameObject.GetComponent<BreakableScript>().hitSound.Play();
-                }
                 Destroy(gameObject);
             }
         }

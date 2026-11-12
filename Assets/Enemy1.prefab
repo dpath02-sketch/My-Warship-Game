@@ -146,6 +146,8 @@ MonoBehaviour:
   tBS: {fileID: 9019844217597823598, guid: 4ba4fcaf4d4a20e41b27c0b63dee4972, type: 3}
   fireSound: {fileID: -6330047138054907294}
   hitSound: {fileID: -9038722156585654035}
+  shieldSound: {fileID: 0}
+  hullSound: {fileID: 0}
   playerScript: {fileID: 0}
   canvas: {fileID: 0}
   hullSlider: {fileID: 46364134508192162, guid: 943860597567a9640825feea902b35d2, type: 3}
