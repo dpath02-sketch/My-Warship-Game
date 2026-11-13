@@ -39,6 +39,8 @@ public class PlayerScript : MonoBehaviour
     public List<TMP_Text> escTexts;
     public List<UnityEngine.UI.ScrollRect> escScrollViews;
     public List<TMP_Dropdown> escDropdowns;
+    public List<UnityEngine.UI.Image> escDImages;
+    public List<TMP_Text> escDTexts;
     public List<UnityEngine.UI.Image> escImages;
     public List<UnityEngine.UI.Scrollbar> escScrollbars;
     public bool alive = true;

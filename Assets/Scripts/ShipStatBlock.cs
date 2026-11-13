@@ -41,10 +41,4 @@ public class ShipStatBlock : MonoBehaviour
         turretPositions.Add(new Vector3(5.0625F, 0, -4.75F));
         turretRotations = new List<Quaternion>();
     }
-
-    [UnityEngine.ContextMenu("Quaternion")]
-    public void GetTurretRotations()
-    {
-        PlayerScript script = GameObject.FindGameObjectWithTag("isPilot").GetComponent<PlayerScript>(); // very botched solution to me not understanding quaternions
-    }
 }

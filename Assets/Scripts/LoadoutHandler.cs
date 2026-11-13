@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LoadoutHandler : MonoBehaviour
@@ -65,6 +66,13 @@ public class LoadoutHandler : MonoBehaviour
         playerHitBox.sharedMesh = hitBox; //TODO and here I have a bad feeling
         playerShipMesh.mesh = mesh;
         playerShipRenderer.SetMaterials(materials);
+        //TODO trails
+        //TODO turrets aint working I hate the ship not existing
+        UIHandler.PurgeDropdowns();
+        for (int i = 0; i < playerScript.turrets.Count; i += 1)
+        {
+            UIHandler.CreateDropdown(playerScript.turretNames[i], playerScript.turretSizes[i]);
+        }
     }
 
     public void LoadStatBlock(PlayerScript playerScript, ShipStatBlock shipStatBlock)
@@ -99,20 +107,20 @@ public class LoadoutHandler : MonoBehaviour
         {
             if (script.turretNames[i] == "P")
             {
-                script.turrets.Add(Instantiate(aPDT, statBlock.turretPositions[i], statBlock.turretRotations[i], playerShip.transform)); //TODO if stuff goes wrong just check here first the ship kinda don't exist for some reason
-                script.turrets[script.turrets.Count - 1].GetComponentInChildren<TurretScript>().ship = playerShip; //TODO maybe this time? I know something else is gonna go wrong anyway may as well try
+                script.turrets.Add(Instantiate(aPDT, statBlock.turretPositions[i], statBlock.turretRotations[i], playerShipMesh.gameObject.transform)); //TODO if stuff goes wrong just check here first the ship kinda don't exist for some reason
+                script.turrets[script.turrets.Count - 1].GetComponentInChildren<TurretScript>().ship = playerShipMesh.gameObject; //TODO maybe this time? I know something else is gonna go wrong anyway may as well try
                 script.turretNames.Add("Repeater");
             }
             else if (script.turretNames[i] == "S")
             {
-                script.turrets.Add(Instantiate(anS, statBlock.turretPositions[i], statBlock.turretRotations[i], playerShip.transform));
-                script.turrets[script.turrets.Count - 1].GetComponentInChildren<TurretScript>().ship = playerShip;
+                script.turrets.Add(Instantiate(anS, statBlock.turretPositions[i], statBlock.turretRotations[i], playerShipMesh.gameObject.transform));
+                script.turrets[script.turrets.Count - 1].GetComponentInChildren<TurretScript>().ship = playerShipMesh.gameObject;
                 script.turretNames.Add("Cannon");
             }
             else if (script.turretNames[i] == "M")
             {
-                script.turrets.Add(Instantiate(andAnMFromTheUIHandler, statBlock.turretPositions[i], statBlock.turretRotations[i], playerShip.transform));
-                script.turrets[script.turrets.Count - 1].GetComponentInChildren<TurretScript>().ship = playerShip;
+                script.turrets.Add(Instantiate(andAnMFromTheUIHandler, statBlock.turretPositions[i], statBlock.turretRotations[i], playerShipMesh.gameObject.transform));
+                script.turrets[script.turrets.Count - 1].GetComponentInChildren<TurretScript>().ship = playerShipMesh.gameObject;
                 script.turretNames.Add("EggMansDong"); // I really shouldn't... BUT THE REFERENCE!!, plus it's kinda temporary it's only gonna exist on the git history
             }
             else

@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33d75ad77847c8e4c938eb19b754bc3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
   baseSpeed: 77
   accel: 31
   agil: 40.5
@@ -57,5 +56,14 @@ MonoBehaviour:
   turretNames: []
   turretSizes: []
   turretPositions: []
+  turretRotations:
+  - {x: 0, y: 0, z: 0, w: 1}
+  - {x: 0, y: 0, z: 1, w: -0.00000004371139}
+  - {x: 0, y: 0, z: 0.70710677, w: 0.70710677}
+  - {x: 0, y: 0, z: 0.70710677, w: -0.70710677}
+  - {x: 0, y: 0, z: 0, w: 1}
+  - {x: 0, y: 0, z: 1, w: -0.00000004371139}
+  - {x: 0, y: 0, z: 0.70710677, w: 0.70710677}
+  - {x: 0, y: 0, z: 0.70710677, w: -0.70710677}
   armour: 2.25
   deflection: 2.25

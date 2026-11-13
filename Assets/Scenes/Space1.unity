@@ -12167,16 +12167,19 @@ MonoBehaviour:
   sTurretIcons:
   - {fileID: 21300000, guid: ae54c95cf649b294f924e519e67fe25b, type: 3}
   - {fileID: 21300000, guid: f1b3c73ca358a0a4ab638983c8008424, type: 3}
-  mTurrets: []
-  mTurretNames: []
-  mTurretIcons: []
+  mTurrets:
+  - {fileID: 5186593481746916041, guid: 634fd8ae7c775fd48ab9a7760f06fca7, type: 3}
+  mTurretNames:
+  - EggMansDong
+  mTurretIcons:
+  - {fileID: 21300000, guid: f1b3c73ca358a0a4ab638983c8008424, type: 3}
   stats:
   - {fileID: 8204426350637185582, guid: 9c5c0bf1f0bb58d4380383beb95698a8, type: 3}
   - {fileID: 181353857544559890, guid: 316a4b7d7e4aba545a7ec299b92d822b, type: 3}
   hitBoxes:
   - {fileID: 603530014252821547, guid: 2bc49abf514397249be716b77b79029d, type: 3}
   - {fileID: 7943979438815560203, guid: 2bc49abf514397249be716b77b79029d, type: 3}
-  mesh:
+  meshes:
   - {fileID: -3555975389013549174, guid: 2bc49abf514397249be716b77b79029d, type: 3}
   - {fileID: 483736894527945613, guid: 2bc49abf514397249be716b77b79029d, type: 3}
   meshMaterials:

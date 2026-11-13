@@ -20,7 +20,7 @@ public class LoadoutUIHandler : MonoBehaviour
     public List<Sprite> mTurretIcons;
     public List<ShipStatBlock> stats;
     public List<Mesh> hitBoxes;
-    public List<Mesh> mesh;
+    public List<Mesh> meshes;
     public List<MaterialWrapper> meshMaterials;
     public List<Vector3Wrapper> trails;
     public Transform itemParent;
@@ -51,14 +51,17 @@ public class LoadoutUIHandler : MonoBehaviour
         dropdowns.Clear();
         dropdownNames.Clear();
         dropdownSizes.Clear();
+        playerScript.escDropdowns.Clear();
+        playerScript.escDImages.Clear();
+        playerScript.escDTexts.Clear();
     }
 
     public void CreateDropdown(string slotText, string size) //TODO start taking in more info about the dropdown once I find out what and how
     {
         GameObject dropdown = Instantiate(dropdownTemplate, itemParent);
         playerScript.escDropdowns.Add(dropdown.GetComponent<TMP_Dropdown>());
-        playerScript.escImages.Add(dropdown.GetComponent<TMP_Dropdown>().captionImage);
-        playerScript.escTexts.Add(dropdown.GetComponent<TMP_Dropdown>().captionText);
+        playerScript.escDImages.Add(dropdown.GetComponent<TMP_Dropdown>().captionImage);
+        playerScript.escDTexts.Add(dropdown.GetComponent<TMP_Dropdown>().captionText);
         dropdown.GetComponent<TMP_Dropdown>().onValueChanged.AddListener(DropdownOptionSelected);
         dropdown.GetComponent<TMP_Dropdown>().ClearOptions();
         List<TMP_Dropdown.OptionData> options = new List<TMP_Dropdown.OptionData>();
@@ -112,5 +115,11 @@ public class LoadoutUIHandler : MonoBehaviour
                 }
             }
         }
+    }
+
+    [ContextMenu("Ship2...maybe")]
+    public void TempShipSwitch()
+    {
+        loadoutHandler.SwitchShip(stats[1], hitBoxes[1], meshes[1], meshMaterials[1].myList, trails[1].myList, pTurrets[0], sTurrets[0], mTurrets[0]);
     }
 }
