@@ -47,8 +47,8 @@ public class PlayerScript : MonoBehaviour
     public AudioClip hullSound;
     private float camLat = 0;
     private float camLon = 0;
-    private float armour = 1.5F;
-    private float deflection = 1.5F;
+    public float armour = 1.5F;
+    public float deflection = 1.5F;
     private List<float> damages = new List<float>();
     private List<float> times = new List<float>();
     private float recTime = 5;

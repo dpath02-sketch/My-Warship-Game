@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ShipStatBlock : MonoBehaviour
 {
-    public float speed = 0;
     public float baseSpeed = 100;
     public float accel = 27;
     public float agil = 61.5F;
@@ -17,6 +16,7 @@ public class ShipStatBlock : MonoBehaviour
     public List<string> turretNames;
     public List<string> turretSizes;
     public List<Vector3> turretPositions;
+    public List<Quaternion> turretRotations;
     public float armour = 1.5F;
     public float deflection = 1.5F;
     public void Init()
@@ -39,5 +39,12 @@ public class ShipStatBlock : MonoBehaviour
         turretPositions.Add(new Vector3(0, -2.5625F, -4.75F));
         turretPositions.Add(new Vector3(-5.0625F, 0, -4.75F));
         turretPositions.Add(new Vector3(5.0625F, 0, -4.75F));
+        turretRotations = new List<Quaternion>();
+    }
+
+    [UnityEngine.ContextMenu("Quaternion")]
+    public void GetTurretRotations()
+    {
+        PlayerScript script = GameObject.FindGameObjectWithTag("isPilot").GetComponent<PlayerScript>(); // very botched solution to me not understanding quaternions
     }
 }

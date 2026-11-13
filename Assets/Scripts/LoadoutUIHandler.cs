@@ -92,7 +92,7 @@ public class LoadoutUIHandler : MonoBehaviour
         dropdownSizes.Add(size);
     }
 
-    public void DropdownOptionSelected(Int32 item) //TODO don't think it work
+    public void DropdownOptionSelected(Int32 item)
     {
         for (int i = 0; i < dropdowns.Count; i += 1)
         {

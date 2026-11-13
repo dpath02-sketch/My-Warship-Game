@@ -4994,6 +4994,8 @@ MonoBehaviour:
   tBS: {fileID: 9019844217597823598, guid: 4ba4fcaf4d4a20e41b27c0b63dee4972, type: 3}
   fireSound: {fileID: 5162109750881716828}
   hitSound: {fileID: 3640459605073117766}
+  shieldSound: {fileID: 0}
+  hullSound: {fileID: 0}
   playerScript: {fileID: 0}
   canvas: {fileID: 0}
   hullSlider: {fileID: 46364134508192162, guid: 943860597567a9640825feea902b35d2, type: 3}
@@ -5010,7 +5012,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 9a0310c01b8584e429847bec297d2697, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.125
   m_Pitch: 1
   Loop: 0
