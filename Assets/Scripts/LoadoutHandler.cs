@@ -9,6 +9,7 @@ public class LoadoutHandler : MonoBehaviour
     public GameObject playerShip;
     public List<GameObject> playerTrails;
     public LoadoutUIHandler UIHandler;
+    public GameObject prefabTrail;
     private PlayerScript playerScript;
     private MeshCollider playerHitBox;
     private Rigidbody playerRigidbody;
@@ -66,21 +67,35 @@ public class LoadoutHandler : MonoBehaviour
 
     public void SwitchShip(ShipStatBlock stats, Mesh hitBox, Mesh mesh, List<Material> materials, List<Vector3> trailPositions, GameObject aPDT, GameObject anS, GameObject andAnMFromTheUIHandler)
     {
+        // Turrets and stats
         PurgeTurrets(playerScript);
         LoadStatBlock(playerScript, stats);
         DefaultTurrets(playerScript, stats, aPDT, anS, andAnMFromTheUIHandler);
+        // Ship stuff
         playerHitBox.sharedMesh = hitBox; //TODO and here I have a bad feeling
         playerShipMesh.mesh = mesh;
         playerShipRenderer.SetMaterials(materials);
-        //TODO trails
-        //TODO turrets aint working I hate the ship not existing
+        //TODO turrets appear at origin positions
+        //TODO think i found issue; instantiate uses global pos not local. fixing...
+        //TODOD about that you can't add Quaternions... why?
+        // Turret UI and slider update
         UIHandler.PurgeDropdowns();
         for (int i = 0; i < playerScript.turrets.Count; i += 1)
         {
             UIHandler.CreateDropdown(playerScript.turretNames[i], playerScript.turretSizes[i]);
         }
-        playerScript.SpeedSlider();
+        playerScript.SpeedSlider(); //TODO don't work? slider not text. hp prob only works cause Update()
         playerScript.HealthSliders();
+        //TODO Trails
+        for (int i = 0; i < playerTrails.Count; i += 1)
+        {
+            Destroy(playerTrails[i]);
+        }
+        playerTrails.Clear();
+        for (int i = 0; i < trailPositions.Count; i += 1)
+        {
+            playerTrails.Add(Instantiate(prefabTrail, trailPositions[i] + playerRoot.transform.position, playerRoot.transform.rotation, playerRoot.transform));
+        }
     }
 
     public void LoadStatBlock(PlayerScript playerScript, ShipStatBlock shipStatBlock)
@@ -111,15 +126,13 @@ public class LoadoutHandler : MonoBehaviour
 
     private void DefaultTurrets(PlayerScript script, ShipStatBlock statBlock, GameObject aPDT, GameObject anS, GameObject andAnMFromTheUIHandler) //Ok fine I'll hold off on the public objects from now on (Neurodivergancy starts humming From Now On (Chapter 4 Battle))
     {
-        Debug.Log("Called");
-        Debug.Log(statBlock.turretSizes.Count);
+        Debug.Log(playerRoot.transform);
         for (int i = 0; i < statBlock.turretSizes.Count; i += 1)
         {
             Debug.Log("Looped");
             if (statBlock.turretSizes[i] == "P")
             {
-                Debug.Log("P");
-                script.turrets.Add(Instantiate(aPDT, statBlock.turretPositions[i], statBlock.turretRotations[i], playerRoot.transform)); //TODO if stuff goes wrong just check here first the ship kinda don't exist for some reason
+                script.turrets.Add(Instantiate(aPDT, statBlock.turretPositions[i] + playerRoot.transform.position, statBlock.turretRotations[i], playerRoot.transform)); //TODO if stuff goes wrong just check here first the ship kinda don't exist for some reason
                 script.turrets[script.turrets.Count - 1].GetComponent<TurretRelay>().ship = playerRoot; //TODO maybe this time? I know something else is gonna go wrong anyway may as well try
                 script.turrets[script.turrets.Count - 1].GetComponent<TurretRelay>().dir = statBlock.turretDirs[i];
                 script.turrets[script.turrets.Count - 1].GetComponentInChildren<TurretScript>().ship = playerRoot; //TODO if you forgot that the keybind has a simpler form remember it's alt
@@ -128,8 +141,7 @@ public class LoadoutHandler : MonoBehaviour
             }
             else if (statBlock.turretSizes[i] == "S")
             {
-                Debug.Log("S");
-                script.turrets.Add(Instantiate(anS, statBlock.turretPositions[i], statBlock.turretRotations[i], playerRoot.transform));
+                script.turrets.Add(Instantiate(anS, statBlock.turretPositions[i] + playerRoot.transform.position, statBlock.turretRotations[i], playerRoot.transform));
                 script.turrets[script.turrets.Count - 1].GetComponent<TurretRelay>().ship = playerRoot;
                 script.turrets[script.turrets.Count - 1].GetComponent<TurretRelay>().dir = statBlock.turretDirs[i];
                 script.turrets[script.turrets.Count - 1].GetComponentInChildren<TurretScript>().ship = playerRoot;
@@ -137,8 +149,7 @@ public class LoadoutHandler : MonoBehaviour
             }
             else if (statBlock.turretSizes[i] == "M")
             {
-                Debug.Log("M");
-                script.turrets.Add(Instantiate(andAnMFromTheUIHandler, statBlock.turretPositions[i], statBlock.turretRotations[i], playerRoot.transform));
+                script.turrets.Add(Instantiate(andAnMFromTheUIHandler, statBlock.turretPositions[i] + playerRoot.transform.position, statBlock.turretRotations[i], playerRoot.transform));
                 script.turrets[script.turrets.Count - 1].GetComponent<TurretRelay>().ship = playerRoot;
                 script.turrets[script.turrets.Count - 1].GetComponent<TurretRelay>().dir = statBlock.turretDirs[i];
                 script.turrets[script.turrets.Count - 1].GetComponentInChildren<TurretScript>().ship = playerRoot;
