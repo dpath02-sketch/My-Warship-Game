@@ -20,15 +20,21 @@ public class LoadoutHandler : MonoBehaviour
         playerScript = playerRoot.GetComponent<PlayerScript>();
         playerHitBox = playerRoot.GetComponent<MeshCollider>();
         playerRigidbody = playerRoot.GetComponent<Rigidbody>();
-        playerShipMesh = playerShip.GetComponent<MeshFilter>();
-        playerShipRenderer = playerShip.GetComponent<MeshRenderer>();
+        RefreshShipStuff();
         CreateUI();
+        Debug.Log("fuck you");
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    private void RefreshShipStuff()
+    {
+        playerShipMesh = playerShip.GetComponent<MeshFilter>();
+        playerShipRenderer = playerShip.GetComponent<MeshRenderer>();
     }
 
     public void ClearTurrets()
@@ -60,8 +66,8 @@ public class LoadoutHandler : MonoBehaviour
 
     public void SwitchShip(ShipStatBlock stats, Mesh hitBox, Mesh mesh, List<Material> materials, List<Vector3> trailPositions, GameObject aPDT, GameObject anS, GameObject andAnMFromTheUIHandler)
     {
-        LoadStatBlock(playerScript, stats);
         PurgeTurrets(playerScript);
+        LoadStatBlock(playerScript, stats);
         DefaultTurrets(playerScript, stats, aPDT, anS, andAnMFromTheUIHandler);
         playerHitBox.sharedMesh = hitBox; //TODO and here I have a bad feeling
         playerShipMesh.mesh = mesh;
@@ -73,6 +79,8 @@ public class LoadoutHandler : MonoBehaviour
         {
             UIHandler.CreateDropdown(playerScript.turretNames[i], playerScript.turretSizes[i]);
         }
+        playerScript.SpeedSlider();
+        playerScript.HealthSliders();
     }
 
     public void LoadStatBlock(PlayerScript playerScript, ShipStatBlock shipStatBlock)
@@ -103,24 +111,36 @@ public class LoadoutHandler : MonoBehaviour
 
     private void DefaultTurrets(PlayerScript script, ShipStatBlock statBlock, GameObject aPDT, GameObject anS, GameObject andAnMFromTheUIHandler) //Ok fine I'll hold off on the public objects from now on (Neurodivergancy starts humming From Now On (Chapter 4 Battle))
     {
-        for (int i = 0; i < script.turretNames.Count; i += 1)
+        Debug.Log("Called");
+        Debug.Log(statBlock.turretSizes.Count);
+        for (int i = 0; i < statBlock.turretSizes.Count; i += 1)
         {
-            if (script.turretNames[i] == "P")
+            Debug.Log("Looped");
+            if (statBlock.turretSizes[i] == "P")
             {
-                script.turrets.Add(Instantiate(aPDT, statBlock.turretPositions[i], statBlock.turretRotations[i], playerShipMesh.gameObject.transform)); //TODO if stuff goes wrong just check here first the ship kinda don't exist for some reason
-                script.turrets[script.turrets.Count - 1].GetComponentInChildren<TurretScript>().ship = playerShipMesh.gameObject; //TODO maybe this time? I know something else is gonna go wrong anyway may as well try
+                Debug.Log("P");
+                script.turrets.Add(Instantiate(aPDT, statBlock.turretPositions[i], statBlock.turretRotations[i], playerRoot.transform)); //TODO if stuff goes wrong just check here first the ship kinda don't exist for some reason
+                script.turrets[script.turrets.Count - 1].GetComponent<TurretRelay>().ship = playerRoot; //TODO maybe this time? I know something else is gonna go wrong anyway may as well try
+                script.turrets[script.turrets.Count - 1].GetComponent<TurretRelay>().dir = statBlock.turretDirs[i];
+                script.turrets[script.turrets.Count - 1].GetComponentInChildren<TurretScript>().ship = playerRoot; //TODO if you forgot that the keybind has a simpler form remember it's alt
                 script.turretNames.Add("Repeater");
             }
-            else if (script.turretNames[i] == "S")
+            else if (statBlock.turretSizes[i] == "S")
             {
-                script.turrets.Add(Instantiate(anS, statBlock.turretPositions[i], statBlock.turretRotations[i], playerShipMesh.gameObject.transform));
-                script.turrets[script.turrets.Count - 1].GetComponentInChildren<TurretScript>().ship = playerShipMesh.gameObject;
+                Debug.Log("S");
+                script.turrets.Add(Instantiate(anS, statBlock.turretPositions[i], statBlock.turretRotations[i], playerRoot.transform));
+                script.turrets[script.turrets.Count - 1].GetComponent<TurretRelay>().ship = playerRoot;
+                script.turrets[script.turrets.Count - 1].GetComponent<TurretRelay>().dir = statBlock.turretDirs[i];
+                script.turrets[script.turrets.Count - 1].GetComponentInChildren<TurretScript>().ship = playerRoot;
                 script.turretNames.Add("Cannon");
             }
-            else if (script.turretNames[i] == "M")
+            else if (statBlock.turretSizes[i] == "M")
             {
-                script.turrets.Add(Instantiate(andAnMFromTheUIHandler, statBlock.turretPositions[i], statBlock.turretRotations[i], playerShipMesh.gameObject.transform));
-                script.turrets[script.turrets.Count - 1].GetComponentInChildren<TurretScript>().ship = playerShipMesh.gameObject;
+                Debug.Log("M");
+                script.turrets.Add(Instantiate(andAnMFromTheUIHandler, statBlock.turretPositions[i], statBlock.turretRotations[i], playerRoot.transform));
+                script.turrets[script.turrets.Count - 1].GetComponent<TurretRelay>().ship = playerRoot;
+                script.turrets[script.turrets.Count - 1].GetComponent<TurretRelay>().dir = statBlock.turretDirs[i];
+                script.turrets[script.turrets.Count - 1].GetComponentInChildren<TurretScript>().ship = playerRoot;
                 script.turretNames.Add("EggMansDong"); // I really shouldn't... BUT THE REFERENCE!!, plus it's kinda temporary it's only gonna exist on the git history
             }
             else

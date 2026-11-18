@@ -53,8 +53,24 @@ MonoBehaviour:
   shield: 2750
   shieldRgn: 10.5
   turrets: []
-  turretNames: []
-  turretSizes: []
+  turretNames:
+  - how...
+  - how...
+  - how...
+  - how...
+  - how...
+  - how...
+  - how...
+  - how...
+  turretSizes:
+  - S
+  - S
+  - S
+  - S
+  - P
+  - P
+  - P
+  - P
   turretPositions:
   - {x: 0, y: 2.75, z: 3.125}
   - {x: 0, y: -2.75, z: 3.125}
