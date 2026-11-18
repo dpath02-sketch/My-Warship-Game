@@ -123,6 +123,7 @@ public class LoadoutHandler : MonoBehaviour
                 script.turrets[script.turrets.Count - 1].GetComponent<TurretRelay>().ship = playerRoot; //TODO maybe this time? I know something else is gonna go wrong anyway may as well try
                 script.turrets[script.turrets.Count - 1].GetComponent<TurretRelay>().dir = statBlock.turretDirs[i];
                 script.turrets[script.turrets.Count - 1].GetComponentInChildren<TurretScript>().ship = playerRoot; //TODO if you forgot that the keybind has a simpler form remember it's alt
+                Debug.Log(script.turrets[script.turrets.Count - 1].GetComponentInChildren<TurretScript>().ship);
                 script.turretNames.Add("Repeater");
             }
             else if (statBlock.turretSizes[i] == "S")

@@ -53,6 +53,7 @@ MonoBehaviour:
   shield: 4100
   shieldRgn: 12
   turrets: []
+  turretDirs: 0000000003000000010000000200000000000000030000000100000002000000
   turretNames:
   - how...
   - how...
