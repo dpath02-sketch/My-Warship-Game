@@ -75,9 +75,6 @@ public class LoadoutHandler : MonoBehaviour
         playerHitBox.sharedMesh = hitBox; //TODO and here I have a bad feeling
         playerShipMesh.mesh = mesh;
         playerShipRenderer.SetMaterials(materials);
-        //TODO turrets appear at origin positions
-        //TODO think i found issue; instantiate uses global pos not local. fixing...
-        //TODOD about that you can't add Quaternions... why?
         // Turret UI and slider update
         UIHandler.PurgeDropdowns();
         for (int i = 0; i < playerScript.turrets.Count; i += 1)
