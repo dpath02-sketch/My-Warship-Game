@@ -132,27 +132,33 @@ public class LoadoutHandler : MonoBehaviour
             Debug.Log("Looped");
             if (statBlock.turretSizes[i] == "P")
             {
-                script.turrets.Add(Instantiate(aPDT, statBlock.turretPositions[i] + playerRoot.transform.position, statBlock.turretRotations[i], playerRoot.transform)); //TODO if stuff goes wrong just check here first the ship kinda don't exist for some reason
-                script.turrets[script.turrets.Count - 1].GetComponent<TurretRelay>().ship = playerRoot; //TODO maybe this time? I know something else is gonna go wrong anyway may as well try
-                script.turrets[script.turrets.Count - 1].GetComponent<TurretRelay>().dir = statBlock.turretDirs[i];
-                script.turrets[script.turrets.Count - 1].GetComponentInChildren<TurretScript>().ship = playerRoot; //TODO if you forgot that the keybind has a simpler form remember it's alt
-                Debug.Log(script.turrets[script.turrets.Count - 1].GetComponentInChildren<TurretScript>().ship);
+                script.turrets.Add(Instantiate(aPDT, playerRoot.transform)); //TODO if stuff goes wrong just check here first the ship kinda don't exist for some reason
+                GameObject turret = script.turrets[script.turrets.Count - 1];
+                turret.transform.SetLocalPositionAndRotation(statBlock.turretPositions[i], statBlock.turretRotations[i]); // nah rotation gotta rotate
+                turret.GetComponent<TurretRelay>().ship = playerRoot; //TODO playerShip didn't work
+                turret.GetComponent<TurretRelay>().dir = statBlock.turretDirs[i];
+                turret.GetComponentInChildren<TurretScript>().ship = playerRoot; //TODO if you forgot that the keybind has a simpler form remember it's alt
+                Debug.Log(turret.GetComponentInChildren<TurretScript>().ship);
                 script.turretNames.Add("Repeater");
             }
             else if (statBlock.turretSizes[i] == "S")
             {
-                script.turrets.Add(Instantiate(anS, statBlock.turretPositions[i] + playerRoot.transform.position, statBlock.turretRotations[i], playerRoot.transform));
-                script.turrets[script.turrets.Count - 1].GetComponent<TurretRelay>().ship = playerRoot;
-                script.turrets[script.turrets.Count - 1].GetComponent<TurretRelay>().dir = statBlock.turretDirs[i];
-                script.turrets[script.turrets.Count - 1].GetComponentInChildren<TurretScript>().ship = playerRoot;
+                script.turrets.Add(Instantiate(anS, playerRoot.transform));
+                GameObject turret = script.turrets[script.turrets.Count - 1];
+                turret.transform.SetLocalPositionAndRotation(statBlock.turretPositions[i], statBlock.turretRotations[i]);
+                turret.GetComponent<TurretRelay>().ship = playerRoot;
+                turret.GetComponent<TurretRelay>().dir = statBlock.turretDirs[i];
+                turret.GetComponentInChildren<TurretScript>().ship = playerRoot;
                 script.turretNames.Add("Cannon");
             }
             else if (statBlock.turretSizes[i] == "M")
             {
-                script.turrets.Add(Instantiate(andAnMFromTheUIHandler, statBlock.turretPositions[i] + playerRoot.transform.position, statBlock.turretRotations[i], playerRoot.transform));
-                script.turrets[script.turrets.Count - 1].GetComponent<TurretRelay>().ship = playerRoot;
-                script.turrets[script.turrets.Count - 1].GetComponent<TurretRelay>().dir = statBlock.turretDirs[i];
-                script.turrets[script.turrets.Count - 1].GetComponentInChildren<TurretScript>().ship = playerRoot;
+                script.turrets.Add(Instantiate(andAnMFromTheUIHandler, playerRoot.transform));
+                GameObject turret = script.turrets[script.turrets.Count - 1];
+                turret.transform.SetLocalPositionAndRotation(statBlock.turretPositions[i], statBlock.turretRotations[i]);
+                turret.GetComponent<TurretRelay>().ship = playerRoot;
+                turret.GetComponent<TurretRelay>().dir = statBlock.turretDirs[i];
+                turret.GetComponentInChildren<TurretScript>().ship = playerRoot;
                 script.turretNames.Add("EggMansDong"); // I really shouldn't... BUT THE REFERENCE!!, plus it's kinda temporary it's only gonna exist on the git history
             }
             else
