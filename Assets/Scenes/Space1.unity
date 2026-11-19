@@ -295,7 +295,7 @@ MonoBehaviour:
   - {fileID: 2555671126149640953}
   - {fileID: 681412407}
   UIHandler: {fileID: 867871458}
-  prefabTrail: {fileID: 4225656625013116106, guid: 1dc4fea57f66cf443b38800d460dad68, type: 3}
+  prefabTrail: {fileID: 7312510714686630506, guid: f13db939a502aa54c9eb9ee9c9a7f71b, type: 3}
 --- !u!4 &62127367
 Transform:
   m_ObjectHideFlags: 0
@@ -7360,10 +7360,10 @@ MonoBehaviour:
     - {fileID: 1399217181045725049, guid: 2bc49abf514397249be716b77b79029d, type: 3}
     - {fileID: 5506428115389609390, guid: 2bc49abf514397249be716b77b79029d, type: 3}
   - myList:
-    - {fileID: 4734868862669877581, guid: 2bc49abf514397249be716b77b79029d, type: 3}
+    - {fileID: 7558102269248774804, guid: bbaffe930228476489c568d3fbcbfce1, type: 3}
     - {fileID: 1930537008950295482, guid: 2bc49abf514397249be716b77b79029d, type: 3}
     - {fileID: 1399217181045725049, guid: 2bc49abf514397249be716b77b79029d, type: 3}
-    - {fileID: 5506428115389609390, guid: 2bc49abf514397249be716b77b79029d, type: 3}
+    - {fileID: 1971912361103134372, guid: bbaffe930228476489c568d3fbcbfce1, type: 3}
   trails:
   - myList:
     - {x: 1.25, y: 0, z: -10}

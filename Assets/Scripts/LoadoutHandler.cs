@@ -84,9 +84,8 @@ public class LoadoutHandler : MonoBehaviour
         {
             UIHandler.CreateDropdown(playerScript.turretNames[i], playerScript.turretSizes[i]);
         }
-        playerScript.SpeedSlider(); //TODO don't work? slider not text. hp prob only works cause Update()
+        playerScript.SpeedSlider();
         playerScript.HealthSliders();
-        //TODO Trails
         for (int i = 0; i < playerTrails.Count; i += 1)
         {
             Destroy(playerTrails[i]);
@@ -94,7 +93,8 @@ public class LoadoutHandler : MonoBehaviour
         playerTrails.Clear();
         for (int i = 0; i < trailPositions.Count; i += 1)
         {
-            playerTrails.Add(Instantiate(prefabTrail, trailPositions[i] + playerRoot.transform.position, playerRoot.transform.rotation, playerRoot.transform));
+            playerTrails.Add(Instantiate(prefabTrail, playerRoot.transform));
+            playerTrails[playerTrails.Count - 1].transform.SetLocalPositionAndRotation(trailPositions[i], playerRoot.transform.rotation);
         }
     }
 
