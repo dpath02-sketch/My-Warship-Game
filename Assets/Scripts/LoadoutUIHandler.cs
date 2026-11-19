@@ -117,9 +117,8 @@ public class LoadoutUIHandler : MonoBehaviour
         }
     }
 
-    [ContextMenu("Ship2...maybe")]
-    public void TempShipSwitch()
+    public void ShipSwitch(int i)
     {
-        loadoutHandler.SwitchShip(stats[1], hitBoxes[1], meshes[1], meshMaterials[1].myList, trails[1].myList, pTurrets[0], sTurrets[0], mTurrets[0]);
+        loadoutHandler.SwitchShip(stats[i], hitBoxes[i], meshes[i], meshMaterials[i].myList, trails[i].myList, pTurrets[0], sTurrets[0], mTurrets[0]);
     }
 }
