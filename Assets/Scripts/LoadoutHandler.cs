@@ -23,7 +23,6 @@ public class LoadoutHandler : MonoBehaviour
         playerRigidbody = playerRoot.GetComponent<Rigidbody>();
         RefreshShipStuff();
         CreateUI();
-        Debug.Log("fuck you");
     }
 
     // Update is called once per frame
