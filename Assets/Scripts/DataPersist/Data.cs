@@ -9,10 +9,11 @@ public class Data // Fine. You want me to keep things private and make wrappers.
     private List<bool> shipsOwned = new List<bool>();
     [SerializeField]
     private float highScore = 0;
-    public void InitValues()
+    public string InitValues()
     {
         shipsOwned.Add(true); // corvette
         shipsOwned.Add(false); // frigate
         // high score is already 0
+        return JsonUtility.ToJson(this, true);
     }
 }
