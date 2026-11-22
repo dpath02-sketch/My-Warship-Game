@@ -5,10 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class Data // Fine. You want me to keep things private and make wrappers. I HAVE DOUBLE THE LINE COUNT CAUSE OF UNITY
 {
-    [SerializeField]
-    private List<bool> shipsOwned = new List<bool>();
-    [SerializeField]
-    private float highScore = 0;
+    public List<bool> shipsOwned = new List<bool>();
+    public float highScore = 0;
     public string InitValues()
     {
         shipsOwned.Add(true); // corvette

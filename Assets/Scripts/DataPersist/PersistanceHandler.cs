@@ -8,13 +8,14 @@ using UnityEngine;
 
 public class PersistanceHandler : MonoBehaviour
 {
+    public string fileName;
     private Data data = new Data();
     private IEnumerable<IData> iDataUsers;
 
     // Start is called before the first frame update
-    void Start()
+    void Start() // Loading data on Start. where else?
     {
-        
+        LoadData();
     }
 
     // Update is called once per frame
@@ -23,12 +24,53 @@ public class PersistanceHandler : MonoBehaviour
         
     }
 
+    void OnApplicationQuit() // Saving data on quit for now
+    {
+        RequestSave();
+    }
+
+    public Data GetData() // OMG I MADE A WRAPPER !!! (I kinda already did with the entire file reading tutorial)
+    {
+        return data;
+    }
+
+    public void LoadData()
+    {
+        data = LoadDataFromFile(fileName);
+        if (data == null)
+        {
+            NewData();
+        }
+        PushLoad();
+    }
+
+    public void SaveData()
+    {
+        RequestSave();
+        SaveDataToFile(fileName, data);
+    }
+
+    public Data NewData()
+    {
+        data = new Data();
+        return data;
+    }
+
     public void RequestSave()
     {
         RefreshIDataUsers();
         foreach (IData iDataUser in iDataUsers)
         {
             iDataUser.SaveRequested(ref data);
+        }
+    }
+
+    public void PushLoad()
+    {
+        RefreshIDataUsers();
+        foreach (IData iDataUser in iDataUsers)
+        {
+            iDataUser.DataLoaded(data);
         }
     }
 
@@ -64,7 +106,7 @@ public class PersistanceHandler : MonoBehaviour
         }
     }
 
-    public Data Loadata(string fileName)
+    public Data LoadDataFromFile(string fileName)
     {
         string path = Application.persistentDataPath;
         string name = fileName;

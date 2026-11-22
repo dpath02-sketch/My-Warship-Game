@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class LoadoutUIHandler : MonoBehaviour
+public class LoadoutUIHandler : MonoBehaviour, IData
 {
     // Start is called before the first frame update
     public List<GameObject> pTurrets;
@@ -31,6 +31,7 @@ public class LoadoutUIHandler : MonoBehaviour
     List<GameObject> dropdowns = new List<GameObject>();
     List<GameObject> dropdownNames = new List<GameObject>();
     List<string> dropdownSizes = new List<string>();
+    private List<bool> shipUnlocks = new List<bool>();
     void Start()
     {
         
@@ -120,5 +121,15 @@ public class LoadoutUIHandler : MonoBehaviour
     public void ShipSwitch(int i)
     {
         loadoutHandler.SwitchShip(stats[i], hitBoxes[i], meshes[i], meshMaterials[i].myList, trails[i].myList, pTurrets[0], sTurrets[0], mTurrets[0]);
+    }
+
+    public void DataLoaded(Data data)
+    {
+        shipUnlocks = data.shipsOwned;
+    }
+
+    public void SaveRequested(ref Data data)
+    {
+        data.shipsOwned = shipUnlocks;
     }
 }

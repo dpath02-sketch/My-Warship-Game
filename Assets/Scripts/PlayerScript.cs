@@ -11,7 +11,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-public class PlayerScript : MonoBehaviour
+public class PlayerScript : MonoBehaviour, IData
 {
     public GameObject cam;
     public float camSens = 5.3F;
@@ -405,5 +405,18 @@ public class PlayerScript : MonoBehaviour
     public void ReturnToMenu()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void DataLoaded(Data data)
+    {
+        
+    }
+
+    public void SaveRequested(ref Data data)
+    {
+        if (score > data.highScore)
+        {
+            data.highScore = score;
+        }
     }
 }
