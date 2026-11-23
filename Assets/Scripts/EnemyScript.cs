@@ -85,12 +85,12 @@ public class EnemyScript : MonoBehaviour
 
     void LateUpdate()
     {
-        if (Camera.main.WorldToScreenPoint(transform.position).z >= 0)
+        if (Camera.main.WorldToScreenPoint(transform.position).z >= 0 && Camera.main.WorldToScreenPoint(transform.position).z <= 5000)
         {
             shieldInstance.transform.position = Camera.main.WorldToScreenPoint(transform.position);
-            shieldInstance.transform.position += new Vector3(0, -3840 / shieldInstance.transform.position.z, 0);
+            shieldInstance.transform.position += new Vector3(0, -4800 / shieldInstance.transform.position.z, -1 * shieldInstance.transform.position.z);
             hullInstance.transform.position = Camera.main.WorldToScreenPoint(transform.position);
-            hullInstance.transform.position += new Vector3(0, -3840 / hullInstance.transform.position.z -10, 0);
+            hullInstance.transform.position += new Vector3(0, -4800 / hullInstance.transform.position.z -10, -1 * hullInstance.transform.position.z);
             shieldInstance.value = shield;
             hullInstance.value = hull;
         }

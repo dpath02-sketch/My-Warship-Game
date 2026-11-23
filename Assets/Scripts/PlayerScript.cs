@@ -191,9 +191,12 @@ public class PlayerScript : MonoBehaviour, IData
         if (persistanceHandler.GetData().highScore > 200000)
         {
             shipButtonTexts[1].text = "Frigate";
-            persistanceHandler.GetData().shipsOwned[1] = true;
-            persistanceHandler.SaveData(); // Update data and push to IDatas
-            persistanceHandler.LoadData();
+            if (persistanceHandler.GetData().shipsOwned[1] == false)
+            {
+                persistanceHandler.GetData().shipsOwned[1] = true;
+                persistanceHandler.SaveData(); // Update data and push to IDatas
+                persistanceHandler.LoadData();
+            }
         }
     }
 
