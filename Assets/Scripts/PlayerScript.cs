@@ -13,6 +13,8 @@ using UnityEngine.UIElements;
 
 public class PlayerScript : MonoBehaviour, IData
 {
+    public PersistanceHandler persistanceHandler;
+    public TMP_Text scoreText;
     public GameObject cam;
     public float camSens = 5.3F;
     public float speed = 0;
@@ -137,9 +139,9 @@ public class PlayerScript : MonoBehaviour, IData
             transform.Translate(new Vector3(0, 0, speed * Time.deltaTime), Space.Self);
             //Health:
             shield += shieldRgn * Time.deltaTime;
-            if (shield > baseShield)
+            if (shield > baseShield * (hull / baseHull)) // if hull is damaged max shield is cooked cause ship break
             {
-                shield = baseShield;
+                shield = baseShield * (hull / baseHull);
             }
             HealthSliders();
             //Turrets
@@ -174,9 +176,18 @@ public class PlayerScript : MonoBehaviour, IData
             }
             if (deathTimer >= 4)
             {
+                persistanceHandler.SaveData();
                 SceneManager.LoadScene("MainMenu");
             }
             HealthSliders();
+        }
+        //TODO Ship unlock checks. may be a better way to do this. likely temporary.
+        scoreText.text = "Score: " + (score / 1000).ToString("0") + "\nSwitch ship: Reset score!";
+        if (score >= 200000)
+        {
+            persistanceHandler.GetData().shipsOwned[1] = true;
+            persistanceHandler.SaveData(); // Update data and push to IDatas
+            persistanceHandler.LoadData();
         }
     }
 

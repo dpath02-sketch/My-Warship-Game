@@ -26,7 +26,7 @@ public class PersistanceHandler : MonoBehaviour
 
     void OnApplicationQuit() // Saving data on quit for now
     {
-        RequestSave();
+        SaveData();
     }
 
     public Data GetData() // OMG I MADE A WRAPPER !!! (I kinda already did with the entire file reading tutorial)
@@ -39,6 +39,7 @@ public class PersistanceHandler : MonoBehaviour
         data = LoadDataFromFile(fileName);
         if (data == null)
         {
+            Debug.Log("No Saves");
             NewData();
         }
         PushLoad();
@@ -53,6 +54,7 @@ public class PersistanceHandler : MonoBehaviour
     public Data NewData()
     {
         data = new Data();
+        data.InitValues();
         return data;
     }
 
@@ -77,6 +79,7 @@ public class PersistanceHandler : MonoBehaviour
     private void RefreshIDataUsers()
     {
         iDataUsers = FindObjectsOfType<MonoBehaviour>().OfType<IData>();
+        Debug.Log(iDataUsers.Count());
     }
 
     public void SaveDataToFile(string fileName, Data data)
@@ -98,11 +101,11 @@ public class PersistanceHandler : MonoBehaviour
                     writer.Write(dataToStore);
                 }
             }
-            Debug.Log("Wrote configs:\n    " + dataToStore + "\nTo:\n    " + fullPath);
+            Debug.Log("Wrote data:\n    " + dataToStore + "\nTo:\n    " + fullPath);
         }
         catch (Exception e)
         {
-            Debug.LogWarning("Error writting configs to:\n    " + fullPath + "\nError:\n    " + e);
+            Debug.LogWarning("Error writting data to:\n    " + fullPath + "\nError:\n    " + e);
         }
     }
 
@@ -126,7 +129,7 @@ public class PersistanceHandler : MonoBehaviour
                 }
                 // Data loaded; convert objects
                 loadedData = JsonUtility.FromJson<Data>(dataToLoad);
-                Debug.Log("Read configs:\n    " + dataToLoad + "\nFrom:\n    " + fullPath);
+                Debug.Log("Read data:\n    " + dataToLoad + "\nFrom:\n    " + fullPath);
             }
             catch (Exception e)
             {

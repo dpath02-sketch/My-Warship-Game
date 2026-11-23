@@ -12,7 +12,7 @@ public class MainMenuScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        highScore.text = "HighScore: " + persistanceHandler.GetData().highScore.ToString("0.00") + "k";
+        highScore.text = "HighScore: " + (persistanceHandler.GetData().highScore / 1000).ToString("0");
     }
 
     // Update is called once per frame

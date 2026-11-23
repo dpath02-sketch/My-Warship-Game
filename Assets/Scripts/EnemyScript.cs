@@ -225,7 +225,7 @@ public class EnemyScript : MonoBehaviour
             {
                 //TODO propper death
                 playerScript.score += Mathf.RoundToInt((baseHull + baseShield) * 18 / fireRate);
-                /*
+                /* Adds to score based on power
                 Power Calculation:
                 Health and Damage aid eachother. No health is useless, no damage is useless, having both is good.
                 Speed aids in surviving but not damage. Also no speed isn't useless except if the enemy runs. Makes speed hard to put into the equasion, so I didn't

@@ -118,9 +118,18 @@ public class LoadoutUIHandler : MonoBehaviour, IData
         }
     }
 
-    public void ShipSwitch(int i)
+    private void ShipSwitch(int i)
     {
         loadoutHandler.SwitchShip(stats[i], hitBoxes[i], meshes[i], meshMaterials[i].myList, trails[i].myList, pTurrets[0], sTurrets[0], mTurrets[0]);
+        playerScript.score = 0;
+    }
+
+    public void TrySwitchShip(int i)
+    {
+        if (shipUnlocks[i])
+        {
+            ShipSwitch(i);
+        }
     }
 
     public void DataLoaded(Data data)
