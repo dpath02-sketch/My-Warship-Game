@@ -84,7 +84,7 @@ public class PersistanceHandler : MonoBehaviour
 
     public void SaveDataToFile(string fileName, Data data)
     {
-        string path = Application.persistentDataPath;
+        string path = Path.Combine(Application.dataPath, "SaveData");
         string name = fileName;
         string fullPath = Path.Combine(path, name);
         try
@@ -111,7 +111,7 @@ public class PersistanceHandler : MonoBehaviour
 
     public Data LoadDataFromFile(string fileName)
     {
-        string path = Application.persistentDataPath;
+        string path = Path.Combine(Application.dataPath, "SaveData");
         string name = fileName;
         string fullPath = Path.Combine(path, fileName);
         Data loadedData = null;
