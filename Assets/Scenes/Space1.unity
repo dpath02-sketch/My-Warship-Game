@@ -10126,6 +10126,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   persistanceHandler: {fileID: 1016338705}
   scoreText: {fileID: 1216635022}
+  shipButtonTexts:
+  - {fileID: 1424162885}
+  - {fileID: 215299957}
   cam: {fileID: 963194225}
   camSens: 5.3
   speed: 0
@@ -10957,7 +10960,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -320, y: 270}
-  m_SizeDelta: {x: 320, y: 60}
+  m_SizeDelta: {x: 320, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1919533436
 MonoBehaviour:

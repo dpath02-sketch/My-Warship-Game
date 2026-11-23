@@ -15,6 +15,7 @@ public class PlayerScript : MonoBehaviour, IData
 {
     public PersistanceHandler persistanceHandler;
     public TMP_Text scoreText;
+    public List<TMP_Text> shipButtonTexts;
     public GameObject cam;
     public float camSens = 5.3F;
     public float speed = 0;
@@ -183,8 +184,13 @@ public class PlayerScript : MonoBehaviour, IData
         }
         //TODO Ship unlock checks. may be a better way to do this. likely temporary.
         scoreText.text = "Score: " + (score / 1000).ToString("0") + "\nSwitch ship: Reset score!";
-        if (score >= 200000)
+        if (score > persistanceHandler.GetData().highScore)
         {
+            persistanceHandler.GetData().highScore = score;
+        }
+        if (persistanceHandler.GetData().highScore > 200000)
+        {
+            shipButtonTexts[1].text = "Frigate";
             persistanceHandler.GetData().shipsOwned[1] = true;
             persistanceHandler.SaveData(); // Update data and push to IDatas
             persistanceHandler.LoadData();
