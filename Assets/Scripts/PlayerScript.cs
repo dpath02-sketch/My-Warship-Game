@@ -151,6 +151,8 @@ public class PlayerScript : MonoBehaviour, IData
         }
         else
         {
+            
+            persistanceHandler.SaveData();
             UnityEngine.Cursor.lockState = CursorLockMode.None;
             if (suned)
             {
@@ -177,7 +179,6 @@ public class PlayerScript : MonoBehaviour, IData
             }
             if (deathTimer >= 4)
             {
-                persistanceHandler.SaveData();
                 SceneManager.LoadScene("MainMenu");
             }
             HealthSliders();
@@ -419,11 +420,13 @@ public class PlayerScript : MonoBehaviour, IData
 
     public void CloseGame()
     {
+        persistanceHandler.SaveData();
         Application.Quit();
     }
 
     public void ReturnToMenu()
     {
+        persistanceHandler.SaveData();
         SceneManager.LoadScene("MainMenu");
     }
 
