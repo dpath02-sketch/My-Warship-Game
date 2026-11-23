@@ -6,7 +6,7 @@ New Hackclub event = new project cause why not.
 <p>This is a Unity game where you fly a space ship and engage in combat. (That's all my ideas so far I'm still working on it)</p>
 <h2>Instructions</h2>
 <p>Go to the Itch IO page and download the zip file. Once it's been unzipped run WarProjectFolder.exe.<br>
-[Itch Page](https://dpath02.itch.io/warships)</p>
+https://dpath02.itch.io/warships</p>
 <h2>Features</h2>
 <ul>
   <li>Moving ship.</li>
@@ -16,12 +16,15 @@ New Hackclub event = new project cause why not.
   <li>Physics on the bullets and asteroids</li>
   <li>Turret Switching</li>
   <li>Sound Effects</li>
+  <li>Another ship to swap to</li>
+  <li>A score system</li>
+  <li>Saving Data</li>
 </ul>
 <h2>Bugs</h2>
 <ul>
   <li>The turrets on the side of the ship don't accurately point to the target. This does seem to be purely a visual issue though and so is low priority</li>
   <li>Object rendering looks weird near the edge of the view distance. I don't write the rendering code so I don't know how to fix this</li>
-  <li>Enemy Health Bars Dissapear when the enemy is far away. Only really a bug because I didn't do it intentionaly</li>
+  <s><li>Enemy Health Bars Dissapear when the enemy is far away. Only really a bug because I didn't do it intentionaly</li></s>
   <li>Mainly a coding issue but any time I try to get a reference to the Players Ship Object it seems to just return null despite it very much existing</li>
 </ul>
 <h2>Credits</h2>
